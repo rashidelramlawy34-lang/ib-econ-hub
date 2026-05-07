@@ -278,11 +278,10 @@
       <li>
         <div class="nav-item" data-page="notes"><span class="nav-icon">≡</span> Study Notes</div>
         <div class="nav-sub" id="notes-sub">
-          <div class="nav-item" data-page="notes" data-unit="1">Unit 1 — Intro</div>
-          <div class="nav-item" data-page="notes" data-unit="2">Unit 2 — Micro</div>
-          <div class="nav-item" data-page="notes" data-unit="3">Unit 3 — Macro</div>
-          <div class="nav-item" data-page="notes" data-unit="4">Unit 4 — International</div>
-          <div class="nav-item" data-page="notes" data-unit="5">Unit 5 — Development</div>
+          <div class="nav-item" data-page="notes" data-unit="1">Unit 1 — Introduction</div>
+          <div class="nav-item" data-page="notes" data-unit="2">Unit 2 — Microeconomics</div>
+          <div class="nav-item" data-page="notes" data-unit="3">Unit 3 — Macroeconomics</div>
+          <div class="nav-item" data-page="notes" data-unit="4">Unit 4 — Global Economy</div>
         </div>
       </li>
       <li><div class="nav-item" data-page="definitions"><span class="nav-icon">▤</span> Definitions</div></li>
@@ -303,11 +302,10 @@
 // ============================================================
 
 const UNITS = {
-  1: "Intro to Economics",
+  1: "Introduction to Economics",
   2: "Microeconomics",
   3: "Macroeconomics",
-  4: "International Economics",
-  5: "Development Economics"
+  4: "The Global Economy"
 };
 
 // --- DEFINITIONS ---
@@ -395,39 +393,53 @@ const DEFINITIONS = [
   {term:"Trade integration", def:"The degree to which economies remove barriers and integrate markets.", eg:"EU single market; ASEAN trade liberalisation.", unit:4, level:"HL"},
 
   // Unit 5 — Development
-  {term:"Economic growth", def:"An increase in real GDP over time.", eg:"China averaged ~9% annual growth 1980–2010.", unit:5, level:"SL"},
-  {term:"Economic development", def:"A multidimensional improvement in living standards including income, health, education, freedom.", eg:"Costa Rica has high HDI relative to GDP.", unit:5, level:"SL"},
-  {term:"HDI", def:"Human Development Index — composite of life expectancy, education (mean & expected years), and GNI per capita.", eg:"Norway typically ranks at the top.", unit:5, level:"SL"},
-  {term:"Absolute poverty", def:"Income below the level needed to maintain a basic standard of living (e.g., $2.15/day).", eg:"~700 million people in 2022 lived below $2.15/day.", unit:5, level:"SL"},
-  {term:"Relative poverty", def:"Income below a defined fraction of median income (often 50% or 60%).", eg:"UK relative poverty line is 60% of median income.", unit:5, level:"SL"},
-  {term:"Gini coefficient", def:"A measure of income inequality from 0 (perfect equality) to 1 (perfect inequality).", eg:"Scandinavian countries ~0.25; South Africa ~0.63.", unit:5, level:"SL"},
-  {term:"Lorenz curve", def:"A graph of cumulative income share against cumulative population share — shows inequality.", eg:"The further from the line of equality, the higher the Gini.", unit:5, level:"SL"},
-  {term:"Foreign direct investment (FDI)", def:"Investment by a foreign firm to acquire or build productive assets in a host economy.", eg:"Toyota building a factory in the UK.", unit:5, level:"SL"},
-  {term:"Microfinance", def:"Providing small loans and financial services to those without access to traditional banking.", eg:"Grameen Bank in Bangladesh.", unit:5, level:"SL"},
-  {term:"Sustainable Development Goals", def:"17 UN goals (2015–2030) covering poverty, education, equality, climate, and more.", eg:"SDG 1: No Poverty.", unit:5, level:"SL"},
-  {term:"Trade liberalisation", def:"Reducing trade barriers to promote international trade.", eg:"WTO rounds reducing tariffs globally.", unit:5, level:"SL"},
-  {term:"Aid", def:"Voluntary transfers of resources from one country to another, often concessional or grant-based.", eg:"Bilateral aid from Japan to Vietnam.", unit:5, level:"SL"},
+  {term:"Economic growth", def:"An increase in real GDP over time.", eg:"China averaged ~9% annual growth 1980–2010.", unit:4, level:"SL"},
+  {term:"Economic development", def:"A multidimensional improvement in living standards including income, health, education, freedom.", eg:"Costa Rica has high HDI relative to GDP.", unit:4, level:"SL"},
+  {term:"HDI", def:"Human Development Index — composite of life expectancy, education (mean & expected years), and GNI per capita.", eg:"Norway typically ranks at the top.", unit:4, level:"SL"},
+  {term:"Absolute poverty", def:"Income below the level needed to maintain a basic standard of living (e.g., $2.15/day).", eg:"~700 million people in 2022 lived below $2.15/day.", unit:4, level:"SL"},
+  {term:"Relative poverty", def:"Income below a defined fraction of median income (often 50% or 60%).", eg:"UK relative poverty line is 60% of median income.", unit:4, level:"SL"},
+  {term:"Gini coefficient", def:"A measure of income inequality from 0 (perfect equality) to 1 (perfect inequality).", eg:"Scandinavian countries ~0.25; South Africa ~0.63.", unit:4, level:"SL"},
+  {term:"Lorenz curve", def:"A graph of cumulative income share against cumulative population share — shows inequality.", eg:"The further from the line of equality, the higher the Gini.", unit:4, level:"SL"},
+  {term:"Foreign direct investment (FDI)", def:"Investment by a foreign firm to acquire or build productive assets in a host economy.", eg:"Toyota building a factory in the UK.", unit:4, level:"SL"},
+  {term:"Microfinance", def:"Providing small loans and financial services to those without access to traditional banking.", eg:"Grameen Bank in Bangladesh.", unit:4, level:"SL"},
+  {term:"Sustainable Development Goals", def:"17 UN goals (2015–2030) covering poverty, education, equality, climate, and more.", eg:"SDG 1: No Poverty.", unit:4, level:"SL"},
+  {term:"Trade liberalisation", def:"Reducing trade barriers to promote international trade.", eg:"WTO rounds reducing tariffs globally.", unit:4, level:"SL"},
+  {term:"Aid", def:"Voluntary transfers of resources from one country to another, often concessional or grant-based.", eg:"Bilateral aid from Japan to Vietnam.", unit:4, level:"SL"},
 ];
 
 // --- STUDY CONTENT ---
 const STUDY_CONTENT = {
   1: `
     <div class="note-section">
-      <h2>1.1 Scarcity, Choice, and Opportunity Cost</h2>
+      <h2>1.1 Economics as a Social Science</h2>
       <div class="key-concept">
         <div class="label">Key concept</div>
-        <p>Economics is the study of how societies allocate <strong>scarce resources</strong> to satisfy <strong>unlimited wants</strong>. Every choice has an <strong>opportunity cost</strong> — the next-best alternative forgone.</p>
+        <p>Economics is a <strong>social science</strong> that studies how individuals, firms, and governments make choices about the allocation of <strong>scarce resources</strong> to satisfy unlimited wants. Every choice involves an <strong>opportunity cost</strong>.</p>
       </div>
       <ul class="tight">
-        <li><strong>Factors of production:</strong> land, labour, capital, entrepreneurship.</li>
-        <li><strong>Three basic questions:</strong> What to produce? How to produce? For whom?</li>
-        <li><strong>Free vs economic goods:</strong> Free goods (e.g., air) have no opportunity cost; economic goods do.</li>
+        <li><strong>Scarcity:</strong> resources are limited relative to unlimited human wants — the central economic problem.</li>
+        <li><strong>Choice:</strong> scarcity forces decision-making at every level (individual, firm, government).</li>
+        <li><strong>Opportunity cost:</strong> the value of the next-best alternative forgone.</li>
+        <li><strong>Three fundamental questions:</strong> <em>What</em> to produce? <em>How</em> to produce? <em>For whom</em> to produce?</li>
+        <li><strong>Free vs economic goods:</strong> free goods (e.g., air) have no opportunity cost; economic goods are scarce and have one.</li>
+        <li><strong>Utility:</strong> satisfaction from consuming a good or service.</li>
       </ul>
     </div>
 
     <div class="note-section">
-      <h2>1.2 Production Possibilities Curve (PPC)</h2>
-      <p>The PPC shows the maximum combinations of two goods produceable with given resources/technology.</p>
+      <h2>1.2 Factors of Production</h2>
+      <table>
+        <tr><th>Factor</th><th>Definition</th><th>Reward</th></tr>
+        <tr><td>Land</td><td>All natural resources</td><td>Rent</td></tr>
+        <tr><td>Labour</td><td>Human physical & mental effort</td><td>Wages</td></tr>
+        <tr><td>Capital</td><td>Manufactured resources used in production (machinery, tools, buildings)</td><td>Interest</td></tr>
+        <tr><td>Entrepreneurship</td><td>Organisation of factors and risk-bearing</td><td>Profit</td></tr>
+      </table>
+    </div>
+
+    <div class="note-section">
+      <h2>1.3 The Production Possibilities Curve (PPC)</h2>
+      <p>A model showing the maximum combinations of two goods produceable with available resources and current technology.</p>
       <div class="svg-diagram">
         <svg class="econ-svg" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Production Possibilities Curve">
           <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
@@ -449,41 +461,155 @@ const STUDY_CONTENT = {
         <div class="svg-caption">On curve: efficient · inside: unemployed resources · outside: unattainable.</div>
       </div>
       <ul class="tight">
-        <li>Points <em>on</em> the curve: productively efficient.</li>
-        <li>Points <em>inside</em> the curve: unemployment / inefficiency.</li>
-        <li>Points <em>outside</em>: unattainable with current resources.</li>
-        <li>Outward shift = economic growth (more resources or better tech).</li>
+        <li><strong>On the curve:</strong> productive efficiency — resources fully and efficiently used.</li>
+        <li><strong>Inside the curve:</strong> unemployment / inefficient use of resources.</li>
+        <li><strong>Outside the curve:</strong> unattainable with current resources.</li>
+        <li><strong>Movement along the PPC:</strong> reallocation between goods (involves opportunity cost).</li>
+        <li><strong>Outward shift:</strong> economic growth — more/better factors, technology improvement.</li>
+        <li><strong>Inward shift:</strong> loss of productive capacity (war, natural disaster, depleted resources).</li>
+        <li><strong>Concave shape:</strong> increasing opportunity cost — factors are not equally suited to producing both goods.</li>
       </ul>
     </div>
 
     <div class="note-section">
-      <h2>1.3 Economic Systems</h2>
+      <h2>1.4 Economic Systems</h2>
       <table>
-        <tr><th>System</th><th>Allocation</th><th>Example</th></tr>
-        <tr><td>Free market</td><td>Price mechanism</td><td>Hong Kong (close)</td></tr>
-        <tr><td>Command</td><td>Central planning</td><td>Cuba, North Korea</td></tr>
-        <tr><td>Mixed</td><td>Both</td><td>UK, Germany, US</td></tr>
+        <tr><th>System</th><th>Resource allocation</th><th>Strengths</th><th>Weaknesses</th></tr>
+        <tr><td>Free market</td><td>Price mechanism (Adam Smith's "invisible hand")</td><td>Efficiency, innovation, choice, consumer sovereignty</td><td>Inequality, market failure, instability</td></tr>
+        <tr><td>Command / planned</td><td>Central authority decides</td><td>Equity goals, full employment focus, public goods provided</td><td>Inefficiency, lack of incentives, shortages, no consumer choice</td></tr>
+        <tr><td>Mixed</td><td>Both markets and government</td><td>Combines efficiency and equity</td><td>Tension between intervention and freedom</td></tr>
       </table>
+      <p>Most modern economies are <strong>mixed</strong> (UK, Germany, US, India). The balance varies by country.</p>
     </div>
 
     <div class="note-section">
-      <h2>1.4 Positive vs Normative</h2>
+      <h2>1.5 The Circular Flow of Income</h2>
+      <p>A simplified model of how money flows through an economy.</p>
       <ul class="tight">
-        <li><strong>Positive:</strong> testable factual claims. <em>"Higher tariffs raise import prices."</em></li>
-        <li><strong>Normative:</strong> value judgments. <em>"The government should reduce inequality."</em></li>
+        <li><strong>Two-sector model:</strong> households provide factors → firms; firms pay factor incomes (wages, rent, etc.) and produce goods → households spend on consumption.</li>
+        <li><strong>Four-sector model:</strong> adds government and foreign sector.</li>
+        <li><strong>Leakages (withdrawals):</strong> savings (S), taxes (T), imports (M).</li>
+        <li><strong>Injections:</strong> investment (I), government spending (G), exports (X).</li>
+        <li><strong>Equilibrium:</strong> when leakages = injections (S + T + M = I + G + X).</li>
       </ul>
     </div>
+
+    <div class="note-section">
+      <h2>1.6 Positive vs Normative Economics</h2>
+      <ul class="tight">
+        <li><strong>Positive:</strong> factual statements, testable with evidence. <em>"A 10% rise in the minimum wage will reduce employment of unskilled workers by 1–3%."</em></li>
+        <li><strong>Normative:</strong> value judgments about what <em>should</em> be. <em>"The minimum wage should be raised to lift workers out of poverty."</em></li>
+        <li>Both are essential. Economists provide positive analysis; policymakers add normative judgments.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>1.7 Economic Methodology</h2>
+      <ul class="tight">
+        <li><strong>Models:</strong> simplifications of reality used to predict and explain.</li>
+        <li><strong>Assumptions:</strong> e.g. rationality, ceteris paribus.</li>
+        <li><strong>Ceteris paribus:</strong> "all other things being equal" — used to isolate the effect of one variable.</li>
+        <li><strong>Empirical evidence:</strong> tests theory against data.</li>
+      </ul>
+    </div>
+
+    <div class="hl-section hl-only">
+      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+      <h3>1.8 Behavioural Economics</h3>
+      <p>Standard models assume <strong>rational maximising</strong> individuals with perfect information. Behavioural economics challenges this.</p>
+      <ul class="tight">
+        <li><strong>Bounded rationality:</strong> limited cognitive capacity → use of rules of thumb (heuristics).</li>
+        <li><strong>Bounded self-control:</strong> people procrastinate, overconsume short-term goods (smoking, sugar), undersave.</li>
+        <li><strong>Bounded selfishness:</strong> people care about fairness — see ultimatum game, charitable giving.</li>
+        <li><strong>Imperfect information:</strong> consumers cannot fully evaluate products (asymmetric info).</li>
+      </ul>
+      <h3>Common biases</h3>
+      <ul class="tight">
+        <li><strong>Loss aversion:</strong> losses feel ~2× as painful as equivalent gains feel good.</li>
+        <li><strong>Anchoring:</strong> over-reliance on the first piece of information.</li>
+        <li><strong>Framing:</strong> the same option is judged differently depending on presentation ("90% fat-free" vs "10% fat").</li>
+        <li><strong>Availability bias:</strong> overweight recent/dramatic information.</li>
+        <li><strong>Endowment effect:</strong> overvalue what we already own.</li>
+      </ul>
+      <h3>Choice architecture &amp; nudges</h3>
+      <p>Designing the way choices are presented to influence behaviour without restricting it (Thaler &amp; Sunstein).</p>
+      <ul class="tight">
+        <li>Default options (e.g., auto-enrolment in pensions raised participation dramatically in the UK).</li>
+        <li>Restricted choice (number of options).</li>
+        <li>Mandated choice (forced to choose, e.g., organ donor opt-in/out).</li>
+        <li>Salience (prominent placement of healthy food).</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>1.9 Nine Central Concepts of IB Economics</h2>
+      <p>The IB syllabus is organised around nine concepts that recur across all units:</p>
+      <table>
+        <tr><th>Concept</th><th>Meaning</th></tr>
+        <tr><td>Scarcity</td><td>Resources are limited relative to wants.</td></tr>
+        <tr><td>Choice</td><td>Scarcity forces decision-making.</td></tr>
+        <tr><td>Efficiency</td><td>Best use of scarce resources (allocative & productive).</td></tr>
+        <tr><td>Equity</td><td>Fairness in distribution of resources.</td></tr>
+        <tr><td>Economic well-being</td><td>Multidimensional concept of welfare.</td></tr>
+        <tr><td>Sustainability</td><td>Meeting present needs without compromising future generations (Brundtland).</td></tr>
+        <tr><td>Change</td><td>Economic conditions evolve — globalisation, tech, climate.</td></tr>
+        <tr><td>Interdependence</td><td>Linkages between agents, sectors, and countries.</td></tr>
+        <tr><td>Intervention</td><td>The role of government in markets.</td></tr>
+      </table>
+      <p>Use these in evaluation paragraphs — examiners reward students who weave them into argument.</p>
+    </div>
+
+    <details>
+      <summary>Common exam pitfalls — Unit 1</summary>
+      <ul class="tight">
+        <li>Confusing absolute and opportunity cost — comparative advantage relies on OC, not absolute costs.</li>
+        <li>Mixing up movement <em>along</em> a PPC (reallocation) with a <em>shift</em> of the PPC (capacity change).</li>
+        <li>Stating "scarcity = shortage" — they're different (scarcity is permanent, shortage is short-term Qd > Qs at a given price).</li>
+        <li>Forgetting that economics is a <strong>social science</strong> — exam-style answers should reference real behaviour.</li>
+      </ul>
+    </details>
   `,
 
   2: `
     <div class="note-section">
-      <h2>2.1 Demand and Supply</h2>
+      <h2>2.1 Demand</h2>
       <div class="key-concept">
         <div class="label">Law of demand</div>
-        <p>As price rises, quantity demanded falls (ceteris paribus). Reasons: income effect, substitution effect, diminishing marginal utility.</p>
+        <p>As price rises, quantity demanded falls (ceteris paribus). Reasons: <strong>income effect</strong> (real income falls), <strong>substitution effect</strong> (relatively more expensive), and <strong>diminishing marginal utility</strong>.</p>
       </div>
-      <p><strong>Non-price determinants of demand:</strong> income, tastes, prices of related goods (substitutes/complements), expectations, population.</p>
-      <p><strong>Non-price determinants of supply:</strong> costs, technology, taxes/subsidies, prices of related goods, expectations, number of firms, weather (for primary commodities).</p>
+      <p><strong>Movement along D vs shift of D:</strong> a price change causes movement; a non-price determinant shifts the curve.</p>
+      <p><strong>Non-price determinants of demand:</strong></p>
+      <ul class="tight">
+        <li><strong>Income:</strong> ↑ income → D right (normal goods); ↓ D for inferior goods.</li>
+        <li><strong>Tastes &amp; preferences:</strong> trends, advertising, social attitudes.</li>
+        <li><strong>Prices of related goods:</strong> substitutes (↑P of one → D for the other ↑), complements (↑P of one → D for the other ↓).</li>
+        <li><strong>Future expectations:</strong> if prices expected to rise → D ↑ today.</li>
+        <li><strong>Number of consumers / population.</strong></li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.2 Supply</h2>
+      <div class="key-concept">
+        <div class="label">Law of supply</div>
+        <p>As price rises, quantity supplied rises (ceteris paribus) because higher prices cover higher marginal costs and incentivise production.</p>
+      </div>
+      <p><strong>Non-price determinants of supply:</strong></p>
+      <ul class="tight">
+        <li><strong>Costs of production:</strong> wages, raw materials, capital.</li>
+        <li><strong>Technology:</strong> productivity-raising tech shifts S right.</li>
+        <li><strong>Indirect taxes:</strong> shift S left.</li>
+        <li><strong>Subsidies:</strong> shift S right.</li>
+        <li><strong>Prices of related goods (in production):</strong> substitutes/jointly produced.</li>
+        <li><strong>Expectations.</strong></li>
+        <li><strong>Number of firms.</strong></li>
+        <li><strong>Weather / shocks</strong> for primary commodities.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.3 Competitive Market Equilibrium</h2>
+      <p>Equilibrium occurs at the price (P*) and quantity (Q*) where Qd = Qs.</p>
       <div class="svg-diagram">
         <svg class="econ-svg" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Demand and supply equilibrium">
           <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
@@ -505,93 +631,341 @@ const STUDY_CONTENT = {
         </svg>
         <div class="svg-caption">Market clears at price P* and quantity Q* where Qd = Qs.</div>
       </div>
-    </div>
-
-    <div class="note-section">
-      <h2>2.2 Equilibrium and Surplus</h2>
       <ul class="tight">
-        <li><strong>Equilibrium:</strong> Qd = Qs at price P*.</li>
-        <li><strong>Consumer surplus:</strong> area between demand curve and price.</li>
-        <li><strong>Producer surplus:</strong> area between price and supply curve.</li>
-        <li><strong>Allocative efficiency</strong> (community surplus maximised) at competitive equilibrium.</li>
-      </ul>
-    </div>
-
-    <div class="note-section">
-      <h2>2.3 Elasticities</h2>
-      <table>
-        <tr><th>Type</th><th>Formula</th><th>Insight</th></tr>
-        <tr><td>PED</td><td>%ΔQd / %ΔP</td><td>Elastic (>1): cut price → revenue ↑</td></tr>
-        <tr><td>PES</td><td>%ΔQs / %ΔP</td><td>Higher PES → smoother adjustment</td></tr>
-        <tr><td>YED</td><td>%ΔQd / %ΔY</td><td>+: normal; − : inferior; >1 luxury</td></tr>
-        <tr><td>XED</td><td>%ΔQdA / %ΔPB</td><td>+ substitutes, − complements</td></tr>
-      </table>
-      <p><strong>PED determinants:</strong> substitutes available, % of income, necessity vs luxury, time horizon, addiction.</p>
-    </div>
-
-    <div class="note-section">
-      <h2>2.4 Market Failure & Externalities</h2>
-      <div class="key-concept">
-        <div class="label">Definition</div>
-        <p>Market failure: free market produces an output where MSB ≠ MSC, leading to a <strong>welfare loss</strong>.</p>
-      </div>
-      <ul class="tight">
-        <li><strong>Negative externality of production:</strong> e.g. pollution → tax (Pigouvian) or regulation.</li>
-        <li><strong>Positive externality of consumption:</strong> e.g. vaccination → subsidy or provision.</li>
-        <li><strong>Public goods:</strong> non-rivalrous + non-excludable → free rider problem → government provision.</li>
-        <li><strong>Asymmetric information:</strong> adverse selection (lemons), moral hazard.</li>
-      </ul>
-    </div>
-
-    <div class="note-section">
-      <h2>2.5 Government Intervention</h2>
-      <ul class="tight">
-        <li><strong>Indirect taxes:</strong> shift S left → higher P, lower Q. Burden split by elasticities.</li>
-        <li><strong>Subsidies:</strong> shift S right → lower P, higher Q. Opportunity cost for taxpayers.</li>
-        <li><strong>Price ceiling</strong> below P*: shortage, queues, black markets (e.g., rent control).</li>
-        <li><strong>Price floor</strong> above P*: surplus (e.g., minimum wage, agricultural price supports).</li>
+        <li><strong>Excess demand</strong> (P &lt; P*): shortage → upward price pressure.</li>
+        <li><strong>Excess supply</strong> (P &gt; P*): surplus → downward price pressure.</li>
+        <li><strong>Consumer surplus:</strong> area below D, above price — value to consumers above what they pay.</li>
+        <li><strong>Producer surplus:</strong> area above S, below price — surplus to firms above their MC.</li>
+        <li><strong>Social/community surplus = CS + PS:</strong> maximised at competitive equilibrium → <strong>allocative efficiency</strong> (MSB = MSC).</li>
+        <li><strong>Productive efficiency:</strong> producing at lowest cost (minimum of ATC).</li>
       </ul>
     </div>
 
     <div class="hl-section hl-only">
       <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
-      <h3>2.6 Theory of the Firm</h3>
-      <p><strong>Profit maximisation:</strong> MR = MC.</p>
-      <table>
-        <tr><th>Structure</th><th>Firms</th><th>Product</th><th>Barriers</th><th>Long-run profit</th></tr>
-        <tr><td>Perfect comp.</td><td>Many</td><td>Identical</td><td>None</td><td>Normal only</td></tr>
-        <tr><td>Monopolistic</td><td>Many</td><td>Differentiated</td><td>Low</td><td>Normal only</td></tr>
-        <tr><td>Oligopoly</td><td>Few</td><td>Either</td><td>High</td><td>Possibly abnormal</td></tr>
-        <tr><td>Monopoly</td><td>One</td><td>Unique</td><td>Very high</td><td>Abnormal</td></tr>
-      </table>
-      <p><strong>Game theory:</strong> non-collusive oligopolists may face the prisoner's dilemma — both undercut and end worse off.</p>
-      <p><strong>Price discrimination</strong> requires market power, ability to separate consumers, and prevent resale.</p>
-      <p><strong>Economies of scale:</strong> internal (purchasing, technical, managerial, financial, risk-bearing) vs external. Diseconomies follow when firms grow too large.</p>
+      <h3>2.4 Critique of the Maximising Assumption</h3>
+      <p>Standard neoclassical theory assumes consumers maximise utility and firms maximise profit, with full information and rationality. <strong>Behavioural economics</strong> challenges these.</p>
+      <ul class="tight">
+        <li><strong>Bounded rationality:</strong> we satisfice rather than optimise (use rules of thumb).</li>
+        <li><strong>Bounded self-control:</strong> short-term temptations override long-run interests (overconsumption of demerit goods).</li>
+        <li><strong>Bounded selfishness:</strong> we care about fairness — see ultimatum games, charitable giving.</li>
+        <li><strong>Imperfect/asymmetric information.</strong></li>
+        <li><strong>Biases:</strong> loss aversion, anchoring, framing, availability.</li>
+        <li><strong>Choice architecture:</strong> default options, restricted choice, mandated choice.</li>
+        <li><strong>Nudges:</strong> push behaviour without restricting freedom (e.g., automatic pension enrolment).</li>
+        <li><strong>Implications for firms:</strong> firms may pursue revenue maximisation, growth maximisation, satisficing, or stakeholder goals.</li>
+      </ul>
     </div>
+
+    <div class="note-section">
+      <h2>2.5 Elasticities of Demand</h2>
+      <div class="key-concept">
+        <div class="label">Price Elasticity of Demand (PED)</div>
+        <p><strong>PED = %ΔQd / %ΔP.</strong> Always negative (sign usually dropped). Measures responsiveness of Qd to a price change.</p>
+      </div>
+      <table>
+        <tr><th>Range</th><th>Type</th><th>Example</th></tr>
+        <tr><td>|PED| = 0</td><td>Perfectly inelastic</td><td>Life-saving medicine</td></tr>
+        <tr><td>0 &lt; |PED| &lt; 1</td><td>Inelastic</td><td>Necessities, addictive goods</td></tr>
+        <tr><td>|PED| = 1</td><td>Unit elastic</td><td>Some manufactured goods</td></tr>
+        <tr><td>|PED| &gt; 1</td><td>Elastic</td><td>Luxuries, goods with substitutes</td></tr>
+        <tr><td>|PED| = ∞</td><td>Perfectly elastic</td><td>Theoretical (e.g., individual firm in PC)</td></tr>
+      </table>
+      <p><strong>Determinants of PED (mnemonic SPLAT):</strong></p>
+      <ul class="tight">
+        <li><strong>Substitutes:</strong> more close substitutes → more elastic.</li>
+        <li><strong>Proportion of income:</strong> larger share → more elastic.</li>
+        <li><strong>Luxury vs necessity:</strong> luxuries elastic; necessities inelastic.</li>
+        <li><strong>Addiction:</strong> addictive goods inelastic.</li>
+        <li><strong>Time:</strong> longer time → more elastic (consumers can adjust).</li>
+      </ul>
+      <p><strong>PED &amp; total revenue:</strong> if elastic, ↑P → ↓TR. If inelastic, ↑P → ↑TR. Unit elastic: TR unchanged.</p>
+      <p><strong>Applications:</strong> firms set prices according to PED; governments tax inelastic goods (cigarettes, fuel) to raise revenue with minimal Q reduction.</p>
+
+      <div class="key-concept" style="margin-top:18px;">
+        <div class="label">Income Elasticity of Demand (YED)</div>
+        <p><strong>YED = %ΔQd / %ΔY.</strong> Sign tells us about the good type.</p>
+      </div>
+      <ul class="tight">
+        <li><strong>YED &gt; 0:</strong> normal good. If &gt; 1: luxury / income-elastic. If 0 &lt; YED &lt; 1: necessity / income-inelastic.</li>
+        <li><strong>YED &lt; 0:</strong> inferior good (demand falls as income rises).</li>
+        <li><strong>Sectoral implication:</strong> as economies grow, demand shifts from primary (low YED) to secondary to tertiary (high YED) — Engel's Law.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.6 Price Elasticity of Supply (PES)</h2>
+      <p><strong>PES = %ΔQs / %ΔP.</strong></p>
+      <ul class="tight">
+        <li><strong>Determinants:</strong>
+          <ul>
+            <li><strong>Time horizon:</strong> longer → more elastic.</li>
+            <li><strong>Mobility of factors of production.</strong></li>
+            <li><strong>Spare capacity</strong> (more spare → more elastic).</li>
+            <li><strong>Stocks &amp; storability.</strong></li>
+            <li><strong>Ease of switching production.</strong></li>
+          </ul>
+        </li>
+        <li><strong>Primary commodities</strong> tend to have low PES (long lead times) — explains volatile commodity prices.</li>
+        <li><strong>Manufactured goods</strong> tend to have higher PES.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.7 Role of Government in Microeconomics</h2>
+      <p>Why intervene? <strong>Earn revenue, support firms/consumers, influence consumption, correct market failure, achieve equity, redistribute income.</strong></p>
+
+      <h3>Indirect taxes</h3>
+      <ul class="tight">
+        <li><strong>Specific tax:</strong> fixed amount per unit (parallel S shift).</li>
+        <li><strong>Ad valorem tax:</strong> percentage of price (S rotates upward, gap widens with price).</li>
+        <li><strong>Effects:</strong> S shifts left → higher P, lower Q.</li>
+        <li><strong>Tax incidence:</strong> divided between consumers and producers based on relative elasticities. The more inelastic side bears more.</li>
+        <li><strong>Welfare:</strong> CS ↓, PS ↓, government revenue, deadweight loss (DWL).</li>
+        <li><strong>Real-world examples:</strong> VAT/GST, excise on cigarettes, alcohol, fuel.</li>
+      </ul>
+
+      <h3>Subsidies</h3>
+      <ul class="tight">
+        <li>Shift S right → lower P, higher Q.</li>
+        <li>Used for merit goods, exports, infant industries, environmental goods (renewables, EVs).</li>
+        <li><strong>Costs:</strong> opportunity cost of taxpayer money, may protect inefficient firms, distort trade.</li>
+      </ul>
+
+      <h3>Price ceilings (maximum prices)</h3>
+      <ul class="tight">
+        <li>Set <strong>below</strong> equilibrium → shortage (Qd &gt; Qs).</li>
+        <li>Consequences: queues, rationing, black markets, lower quality, underinvestment.</li>
+        <li>Examples: rent controls (NYC, Berlin), food price controls in crises.</li>
+      </ul>
+
+      <h3>Price floors (minimum prices)</h3>
+      <ul class="tight">
+        <li>Set <strong>above</strong> equilibrium → surplus (Qs &gt; Qd).</li>
+        <li>Examples: minimum wage (raises wages but may cause unemployment), agricultural price supports (EU CAP — caused "butter mountains").</li>
+        <li>Government may buy the surplus or pay producers to limit output.</li>
+      </ul>
+
+      <h3>Direct provision &amp; command/control regulation</h3>
+      <ul class="tight">
+        <li><strong>Direct provision:</strong> government supplies merit/public goods (NHS, state schools).</li>
+        <li><strong>Regulation/legislation:</strong> emissions limits, smoking bans, mandatory labelling, age restrictions.</li>
+      </ul>
+
+      <div class="hl-section hl-only" style="margin-top:14px;">
+        <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+        <h3>Consumer nudges (HL)</h3>
+        <p>Choice architecture changes context to influence behaviour while preserving freedom of choice.</p>
+        <ul class="tight">
+          <li>Default options (organ donation opt-out).</li>
+          <li>Salience (placing healthy food at eye level).</li>
+          <li>Mandated choice (forced to actively choose).</li>
+          <li>Restricted choice (limit number of options).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>2.8 Market Failure — Externalities &amp; Common Pool Resources</h2>
+      <div class="key-concept">
+        <div class="label">Market failure</div>
+        <p>The free market produces an output where MSB ≠ MSC, leading to <strong>welfare loss</strong> and inefficient resource allocation.</p>
+      </div>
+      <p>An <strong>externality</strong> is a spill-over effect on a third party not accounted for in the market price. Four types:</p>
+      <table>
+        <tr><th>Type</th><th>Curve</th><th>Example</th><th>Outcome</th><th>Solution</th></tr>
+        <tr><td>Negative production</td><td>MSC &gt; MPC</td><td>Air pollution from steel mill</td><td>Overproduction, welfare loss</td><td>Pigouvian tax, regulation, tradable permits</td></tr>
+        <tr><td>Negative consumption</td><td>MSB &lt; MPB</td><td>Smoking, alcohol</td><td>Overconsumption</td><td>Tax, advertising bans, age limits, education</td></tr>
+        <tr><td>Positive production</td><td>MSC &lt; MPC</td><td>R&amp;D spillovers, training</td><td>Underproduction</td><td>Subsidies, tax credits, government R&amp;D</td></tr>
+        <tr><td>Positive consumption</td><td>MSB &gt; MPB</td><td>Vaccination, education</td><td>Underconsumption</td><td>Subsidies, direct provision, education campaigns</td></tr>
+      </table>
+      <div class="svg-diagram">
+        <svg class="econ-svg" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Negative externality of production">
+          <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="60" y1="280" x2="460" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="60,30 56,40 64,40" fill="currentColor"/>
+          <polygon points="470,280 460,276 460,284" fill="currentColor"/>
+          <line x1="100" y1="260" x2="400" y2="80" stroke="var(--secondary)" stroke-width="2.5"/>
+          <text x="402" y="78" font-size="11" fill="var(--secondary)" font-weight="800">MPC = S</text>
+          <line x1="100" y1="240" x2="400" y2="60" stroke="var(--bad)" stroke-width="2.5" stroke-dasharray="6,3"/>
+          <text x="402" y="58" font-size="11" fill="var(--bad)" font-weight="800">MSC</text>
+          <line x1="100" y1="80" x2="400" y2="270" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="402" y="272" font-size="11" fill="var(--primary)" font-weight="800">D = MSB = MPB</text>
+          <circle cx="270" cy="170" r="4.5" fill="currentColor"/>
+          <text x="278" y="160" font-size="11" fill="currentColor" font-weight="800">market</text>
+          <circle cx="245" cy="155" r="4.5" fill="var(--good)"/>
+          <text x="170" y="148" font-size="11" fill="var(--good)" font-weight="800">social optimum</text>
+          <polygon points="270,170 245,155 270,155" fill="var(--bad)" opacity="0.25"/>
+          <text x="40" y="30" font-size="12" font-weight="800" fill="currentColor">P</text>
+          <text x="465" y="296" font-size="12" font-weight="800" fill="currentColor">Q</text>
+        </svg>
+        <div class="svg-caption">Negative production externality: MSC above MPC. Market overproduces; shaded triangle is welfare loss.</div>
+      </div>
+      <h3>Common pool (common access) resources</h3>
+      <ul class="tight">
+        <li><strong>Definition:</strong> rivalrous but non-excludable (e.g., ocean fisheries, the atmosphere, forests).</li>
+        <li><strong>Tragedy of the commons:</strong> individuals overuse the resource since they bear none of the cost — leads to depletion.</li>
+        <li><strong>Sustainability link:</strong> overconsumption now compromises future generations.</li>
+        <li><strong>Solutions:</strong> legislation/quotas, allocating property rights (Coase), tradable permits, international agreements (Paris Agreement, Montreal Protocol), education.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.9 Market Failure — Public Goods</h2>
+      <ul class="tight">
+        <li><strong>Two characteristics:</strong> non-rivalrous (one person's consumption doesn't reduce another's) and non-excludable (cannot prevent free-riding).</li>
+        <li><strong>Free rider problem:</strong> consumers won't pay → private provision unprofitable → underprovision.</li>
+        <li><strong>Examples:</strong> national defence, street lighting, lighthouses, basic research.</li>
+        <li><strong>Solutions:</strong> direct government provision funded by taxes; contracting private firms (PFI).</li>
+        <li><strong>Quasi-public goods:</strong> partially excludable or rivalrous (uncongested roads).</li>
+      </ul>
+    </div>
+
+    <div class="hl-section hl-only">
+      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+      <h3>2.10 Asymmetric Information</h3>
+      <ul class="tight">
+        <li><strong>Definition:</strong> one party in a transaction has more or better information than the other.</li>
+        <li><strong>Adverse selection:</strong> the informed party self-selects in undesirable ways. Akerlof's "lemons" model — buyers can't distinguish good from bad cars, so prices fall, good cars exit, only lemons remain.</li>
+        <li><strong>Moral hazard:</strong> after a transaction, the better-informed party changes behaviour because they no longer bear full cost (insurance reduces caution).</li>
+        <li><strong>Solutions:</strong> regulation (mandatory disclosure), screening (interviews, credit scores), signalling (warranties, qualifications), licensing.</li>
+      </ul>
+
+      <h3>2.11 Market Power &amp; Market Structures</h3>
+      <table>
+        <tr><th>Structure</th><th>Number</th><th>Product</th><th>Barriers</th><th>LR profit</th><th>Allocative efficient?</th></tr>
+        <tr><td>Perfect competition</td><td>Many</td><td>Identical</td><td>None</td><td>Normal</td><td>Yes (P = MC)</td></tr>
+        <tr><td>Monopolistic comp.</td><td>Many</td><td>Differentiated</td><td>Low</td><td>Normal</td><td>No (excess capacity)</td></tr>
+        <tr><td>Oligopoly</td><td>Few</td><td>Either</td><td>High</td><td>Possibly abnormal</td><td>No (interdependence)</td></tr>
+        <tr><td>Monopoly</td><td>One</td><td>Unique</td><td>Very high</td><td>Abnormal</td><td>No (P &gt; MC)</td></tr>
+      </table>
+
+      <h3>Profit maximisation rule</h3>
+      <p>All firms produce where <strong>MR = MC</strong>. The price they can charge depends on the demand they face.</p>
+
+      <h3>Perfect competition</h3>
+      <ul class="tight">
+        <li>Price takers; firm faces perfectly elastic demand at market price.</li>
+        <li>Short run: can earn abnormal profit, normal profit, or loss.</li>
+        <li>Long run: free entry/exit drives profit to <strong>normal</strong>.</li>
+        <li>Both <strong>productively</strong> (P = min ATC) and <strong>allocatively</strong> efficient (P = MC).</li>
+      </ul>
+
+      <h3>Monopoly</h3>
+      <ul class="tight">
+        <li>Single seller, high barriers (legal, natural EoS, control of resources, brand, network effects).</li>
+        <li>Profit-max at MR = MC, charges P &gt; MR &gt; MC → allocatively inefficient with welfare loss.</li>
+        <li><strong>Natural monopoly:</strong> EoS so large one firm minimises ATC (utilities) → may justify regulation.</li>
+        <li><strong>Possible benefits:</strong> EoS lower costs, profits fund R&amp;D, dynamic efficiency.</li>
+      </ul>
+
+      <h3>Monopolistic competition</h3>
+      <ul class="tight">
+        <li>Many firms, differentiated products (branding), low barriers.</li>
+        <li>Short-run abnormal profit possible; long-run entry erodes to normal profit.</li>
+        <li>Allocatively inefficient (P &gt; MC) and excess capacity, but consumers gain variety.</li>
+      </ul>
+
+      <h3>Oligopoly</h3>
+      <ul class="tight">
+        <li>Few interdependent firms — each considers rivals' reactions.</li>
+        <li><strong>Collusive</strong> (cartel, e.g., OPEC) — agree to limit output, raise price.</li>
+        <li><strong>Non-collusive</strong> — kinked demand curve theory: prices sticky because rivals match cuts but ignore rises.</li>
+        <li><strong>Game theory:</strong> prisoner's dilemma — dominant strategy of both firms is to defect (e.g., advertise, cut price), leading to a worse outcome than cooperation.</li>
+        <li>Non-price competition: branding, quality, advertising, customer service.</li>
+      </ul>
+
+      <h3>Price discrimination</h3>
+      <p>Charging different prices to different consumers for the same good when not justified by cost.</p>
+      <ul class="tight">
+        <li><strong>Conditions:</strong> market power, distinguishable groups with different PEDs, no resale possible.</li>
+        <li><strong>Types:</strong> 1st degree (perfect), 2nd degree (by quantity/version), 3rd degree (by group — students, seniors).</li>
+        <li><strong>Effects:</strong> raises producer surplus; some consumers gain access who otherwise wouldn't.</li>
+      </ul>
+
+      <h3>Economies and diseconomies of scale</h3>
+      <ul class="tight">
+        <li><strong>Internal EoS:</strong> purchasing, technical, managerial, financial, risk-bearing, marketing.</li>
+        <li><strong>External EoS:</strong> industry-wide (clusters like Silicon Valley).</li>
+        <li><strong>Diseconomies of scale:</strong> communication breakdowns, coordination, motivation issues.</li>
+      </ul>
+
+      <h3>Government policy on market power</h3>
+      <ul class="tight">
+        <li>Anti-trust legislation (US Sherman Act, EU competition law).</li>
+        <li>Regulation (price caps for utilities — RPI − X formula).</li>
+        <li>Nationalisation / state ownership.</li>
+        <li>Promote competition (deregulate, remove barriers).</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>Common exam pitfalls — Unit 2</summary>
+      <ul class="tight">
+        <li>Mixing up movement along D/S (price change) with shift (non-price determinant change).</li>
+        <li>Forgetting to label diagrams properly — axes, equilibrium, shifts must all be labelled.</li>
+        <li>Confusing PED with PES sign conventions and ranges.</li>
+        <li>Confusing public goods (non-rivalrous, non-excludable) with merit goods (positive externalities of consumption).</li>
+        <li>Tax incidence: getting the elasticities the wrong way round — the more <em>inelastic</em> side bears more.</li>
+        <li>For oligopoly, failing to discuss interdependence — the defining feature.</li>
+        <li>Saying "monopolies are always bad" — strong answers acknowledge potential benefits (EoS, R&amp;D).</li>
+      </ul>
+    </details>
   `,
 
   3: `
     <div class="note-section">
       <h2>3.1 Measuring Economic Activity</h2>
       <div class="key-concept">
-        <div class="label">GDP — three approaches</div>
-        <p><strong>Output:</strong> sum of value added.<br>
+        <div class="label">GDP — three equivalent approaches</div>
+        <p><strong>Output:</strong> sum of value added at each stage.<br>
         <strong>Income:</strong> wages + rent + interest + profit.<br>
         <strong>Expenditure:</strong> C + I + G + (X − M).<br>
-        All three approaches must yield the same total.</p>
+        All three must give the same total: total spending = total earned = total produced.</p>
       </div>
       <ul class="tight">
-        <li><strong>GNI</strong> = GDP + net property income from abroad.</li>
-        <li><strong>Real vs nominal GDP:</strong> Real GDP = (Nominal GDP / Price index) × 100.</li>
-        <li><strong>GDP per capita</strong> better captures living standards but misses inequality, environment, informal economy, leisure.</li>
+        <li><strong>GDP:</strong> total monetary value of all final goods and services produced <em>within</em> a country in a year.</li>
+        <li><strong>GNI</strong> = GDP + net property income from abroad. Captures earnings <em>by</em> residents.</li>
+        <li><strong>Real vs nominal:</strong> Real GDP = (Nominal GDP / Price deflator) × 100. Real strips out price changes.</li>
+        <li><strong>GDP per capita</strong> = GDP / population — better proxy for living standards.</li>
+        <li><strong>PPP-adjusted GDP:</strong> compares living standards across countries by adjusting for cost-of-living differences.</li>
+      </ul>
+      <h3>Limitations of GDP</h3>
+      <ul class="tight">
+        <li>Excludes informal/non-market activity (subsistence, voluntary, household labour).</li>
+        <li>Ignores income distribution.</li>
+        <li>Says nothing about quality of services or environmental degradation.</li>
+        <li>Doesn't value leisure.</li>
+        <li>Underestimates output in developing countries.</li>
+      </ul>
+      <h3>Alternative measures of well-being</h3>
+      <ul class="tight">
+        <li><strong>OECD Better Life Index</strong> — 11 dimensions including housing, health, life satisfaction.</li>
+        <li><strong>Happy Planet Index</strong> — life expectancy × experienced well-being / ecological footprint.</li>
+        <li><strong>HDI</strong> — see Unit 4 (development).</li>
       </ul>
     </div>
 
     <div class="note-section">
-      <h2>3.2 AD / AS Model</h2>
-      <p><strong>AD = C + I + G + (X − M).</strong> Downward sloping due to wealth, interest rate, and net export effects.</p>
-      <p><strong>SRAS</strong> upward sloping; shifts from costs (wages, raw materials, indirect taxes, exchange rates).</p>
-      <p><strong>LRAS</strong> at full employment (potential GDP). Shifts from quantity/quality of factors, technology, productivity.</p>
+      <h2>3.2 The Business Cycle &amp; AD/AS Model</h2>
+      <p>Real GDP fluctuates around a long-term trend: <strong>boom → recession → trough → recovery</strong>. A recession is conventionally defined as 2+ consecutive quarters of negative growth.</p>
+
+      <h3>Aggregate Demand (AD)</h3>
+      <p><strong>AD = C + I + G + (X − M).</strong> Downward sloping due to wealth effect, interest rate effect, and net export (international substitution) effect.</p>
+      <p><strong>Determinants of each component:</strong></p>
+      <ul class="tight">
+        <li><strong>Consumption (C):</strong> disposable income, wealth, interest rates, consumer confidence, expectations, household debt.</li>
+        <li><strong>Investment (I):</strong> interest rates, business confidence, technology, corporate tax, capacity utilisation.</li>
+        <li><strong>Government spending (G):</strong> policy decisions, automatic stabilisers, debt levels.</li>
+        <li><strong>Net exports (X − M):</strong> exchange rates, foreign income, domestic income (M), trade policy, relative inflation.</li>
+      </ul>
+
+      <h3>Aggregate Supply (AS)</h3>
+      <ul class="tight">
+        <li><strong>SRAS</strong> upward-sloping. Shifts due to costs of production (wages, raw materials, oil prices, indirect taxes, exchange rate impact on import costs).</li>
+        <li><strong>LRAS (neoclassical):</strong> vertical at full-employment output Yfe. Determined only by supply-side (factor quantity/quality, technology, productivity).</li>
+        <li><strong>Keynesian AS:</strong> horizontal at low Y (slack), upward-sloping near capacity, vertical at full employment — implies fiscal stimulus has large output effect in slumps but only inflates at full employment.</li>
+      </ul>
       <div class="svg-diagram">
         <svg class="econ-svg" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aggregate demand and aggregate supply">
           <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
@@ -610,124 +984,70 @@ const STUDY_CONTENT = {
           <text x="40" y="30" font-size="13" font-weight="800" fill="currentColor">PL</text>
           <text x="445" y="296" font-size="13" font-weight="800" fill="currentColor">Y</text>
         </svg>
-        <div class="svg-caption">Short-run equilibrium at intersection of AD and SRAS; long-run equilibrium on LRAS at full-employment Yfe.</div>
+        <div class="svg-caption">Short-run equilibrium at AD ∩ SRAS; long-run equilibrium on LRAS at full-employment Yfe.</div>
       </div>
-      <p><strong>Keynesian AS</strong> is horizontal at low Y, upward sloping near capacity, vertical at full employment — implying fiscal stimulus has big effects in slack economies, none at full employment.</p>
     </div>
 
     <div class="note-section">
       <h2>3.3 Macroeconomic Objectives</h2>
+
+      <h3>1) Low and stable inflation</h3>
       <ul class="tight">
-        <li><strong>Sustainable economic growth.</strong></li>
-        <li><strong>Low unemployment</strong> — types: cyclical, structural, frictional, seasonal.</li>
-        <li><strong>Low and stable inflation</strong> — typically ~2% target. Deflation risks (Japan).</li>
-        <li><strong>Equity</strong> in income distribution.</li>
+        <li><strong>Inflation</strong> = sustained rise in the general price level. <strong>Disinflation</strong> = falling rate of inflation. <strong>Deflation</strong> = falling price level.</li>
+        <li><strong>Measurement:</strong> CPI from a weighted basket of goods. Limitations: weighting changes, new products, quality changes, regional differences.</li>
+        <li><strong>Demand-pull inflation:</strong> AD shift right at full capacity → ↑PL.</li>
+        <li><strong>Cost-push inflation:</strong> SRAS shift left (oil shock, wage rises, depreciation, indirect taxes) → ↑PL, ↓Y (stagflation).</li>
+        <li><strong>Costs of inflation:</strong> reduced purchasing power, redistribution (creditors lose, debtors gain), uncertainty (lower investment), menu costs, shoe-leather costs, loss of competitiveness, real-wage effects (wage-price spiral).</li>
+        <li><strong>Costs of deflation:</strong> postponed spending, rising real debt burden, sticky wages cause unemployment (Japan's "lost decades").</li>
+        <li><strong>Target:</strong> typically 2% — low and predictable.</li>
       </ul>
-      <p><strong>Costs of unemployment:</strong> personal (income, mental health), economic (lost output, lower tax revenue, higher transfers).</p>
-      <p><strong>Costs of inflation:</strong> menu costs, shoe-leather, redistribution from creditors to debtors, uncertainty, international competitiveness.</p>
-    </div>
 
-    <div class="note-section">
-      <h2>3.4 Demand-Side Policies</h2>
+      <h3>2) Low unemployment</h3>
       <ul class="tight">
-        <li><strong>Fiscal policy:</strong> changing G or T to shift AD. Discretionary vs automatic stabilisers.</li>
-        <li><strong>Monetary policy:</strong> central bank interest rate, OMOs, QE, reserve requirements.</li>
+        <li><strong>Unemployment rate</strong> = (unemployed / labour force) × 100. Labour force = employed + actively looking.</li>
+        <li><strong>Limitations of unemployment data:</strong> hidden unemployment (discouraged workers), underemployment (part-time wanting full-time), informal economy.</li>
+        <li><strong>Types:</strong>
+          <ul>
+            <li><strong>Cyclical (demand-deficient):</strong> from a fall in AD; addressed with demand-side policy.</li>
+            <li><strong>Structural:</strong> mismatch of skills, location, occupation; addressed with retraining, mobility support.</li>
+            <li><strong>Frictional:</strong> short-term, between jobs; mostly unavoidable (some healthy churn).</li>
+            <li><strong>Seasonal:</strong> tourism, agriculture, construction.</li>
+          </ul>
+        </li>
+        <li><strong>Costs:</strong> personal (income loss, mental/physical health, family stress), economic (lost output, lower tax revenue, higher welfare spending), social (crime, social exclusion).</li>
       </ul>
-      <p><strong>Strengths:</strong> targeted, flexible (monetary), direct (fiscal). <strong>Weaknesses:</strong> time lags, crowding out, political bias, liquidity trap.</p>
-    </div>
 
-    <div class="note-section">
-      <h2>3.5 Supply-Side Policies</h2>
+      <h3>3) Economic growth</h3>
       <ul class="tight">
-        <li><strong>Market-based:</strong> labour market reforms, deregulation, privatisation, lower taxes on labour/capital.</li>
-        <li><strong>Interventionist:</strong> investment in education, training, infrastructure, R&D.</li>
+        <li><strong>Definition:</strong> increase in real GDP over time (short run = AD shift; long run = LRAS shift).</li>
+        <li><strong>Causes (LR):</strong> labour quantity/quality, capital stock, natural resources, technology, productivity, institutions.</li>
+        <li><strong>Benefits:</strong> ↑ living standards, ↑ employment, ↑ tax revenue, ↓ poverty, better public services.</li>
+        <li><strong>Costs:</strong> environmental degradation, inequality may widen, depletion of non-renewable resources, opportunity costs of investment, structural change disruption.</li>
+        <li><strong>Sustainable growth:</strong> growth that does not deplete resources or harm future generations' welfare.</li>
       </ul>
-      <p>Long-term, expand LRAS — but expensive, slow, and may worsen inequality.</p>
-    </div>
 
-    <div class="hl-section hl-only">
-      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
-      <h3>3.6 Multiplier and Accelerator</h3>
-      <p>Keynesian multiplier: <strong>k = 1 / (1 − MPC) = 1 / (MPS + MPT + MPM)</strong>.</p>
-      <p>An autonomous injection (G, I, X) raises GDP by k × the injection.</p>
-      <p><strong>Example:</strong> MPC = 0.6 → k = 1/0.4 = 2.5. A $200m injection raises GDP by $500m.</p>
-      <p><strong>Accelerator:</strong> investment depends on <em>change</em> in output, magnifying business cycles.</p>
-    </div>
-  `,
+      <h3>4) Equity in income distribution</h3>
+      <p>Equity ≠ equality. Equity is fairness; equality is sameness. See section 3.4 below.</p>
 
-  4: `
-    <div class="note-section">
-      <h2>4.1 Why Trade?</h2>
-      <div class="key-concept">
-        <div class="label">Comparative advantage (Ricardo)</div>
-        <p>Countries gain by specialising where their <strong>opportunity cost</strong> is lowest, even if absolutely less productive in everything.</p>
+      <div class="hl-section hl-only" style="margin-top:14px;">
+        <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+        <h3>5) Sustainable level of government debt</h3>
+        <ul class="tight">
+          <li><strong>Government debt</strong> = stock of borrowing; <strong>budget deficit</strong> = annual borrowing.</li>
+          <li>Sustainability often measured by debt-to-GDP ratio.</li>
+          <li><strong>Concerns of high debt:</strong> rising debt-servicing costs crowd out other spending; risk of bond markets demanding higher yields; intergenerational equity; reduced fiscal space in next downturn.</li>
+          <li><strong>Counter-arguments:</strong> if debt is in own currency, financed cheaply, used for productive investment, it can be sustainable indefinitely.</li>
+        </ul>
       </div>
-      <p><strong>Other gains:</strong> economies of scale, variety, competition, technology transfer.</p>
-      <p><strong>Limitations:</strong> assumes constant costs, full employment, no transport costs, mobility of factors.</p>
     </div>
 
     <div class="note-section">
-      <h2>4.2 Protectionism</h2>
-      <table>
-        <tr><th>Tool</th><th>Effect</th><th>Welfare</th></tr>
-        <tr><td>Tariff</td><td>Raises import price</td><td>Producer + gov gain; consumers + DWL loss</td></tr>
-        <tr><td>Quota</td><td>Limits import quantity</td><td>Similar to tariff but no gov revenue (unless auctioned)</td></tr>
-        <tr><td>Subsidy</td><td>Cuts producer cost</td><td>Producers gain at taxpayer cost</td></tr>
-        <tr><td>Admin barriers</td><td>Standards, paperwork</td><td>Reduce imports</td></tr>
-      </table>
-      <p><strong>Arguments for:</strong> infant industry, anti-dumping, strategic (defence), national security, balance of payments.<br>
-      <strong>Against:</strong> retaliation, inefficiency, higher prices, less choice, harms exporters via stronger currency.</p>
-    </div>
-
-    <div class="note-section">
-      <h2>4.3 Exchange Rates</h2>
+      <h2>3.4 Economics of Inequality &amp; Poverty</h2>
+      <h3>Measuring inequality</h3>
       <ul class="tight">
-        <li><strong>Floating:</strong> determined by demand/supply for currency (trade flows, capital flows, speculation).</li>
-        <li><strong>Fixed:</strong> central bank uses reserves and interest rates to maintain peg.</li>
-        <li><strong>Managed float:</strong> mostly market-determined with occasional intervention.</li>
-      </ul>
-      <p><strong>Causes of appreciation:</strong> rising interest rates, strong exports, foreign investment, speculation.</p>
-      <p><strong>Effects of depreciation:</strong> exports cheaper (X ↑), imports dearer (M ↓), inflation pressure, debt servicing harder if debt is in foreign currency.</p>
-    </div>
-
-    <div class="note-section">
-      <h2>4.4 Balance of Payments</h2>
-      <ul class="tight">
-        <li><strong>Current account:</strong> trade in goods + services + primary income + secondary income.</li>
-        <li><strong>Capital account:</strong> small — capital transfers, sale of non-produced assets.</li>
-        <li><strong>Financial account:</strong> FDI, portfolio investment, reserve assets.</li>
-      </ul>
-      <p>BoP must balance overall. A persistent CA deficit must be financed by financial inflows or running down reserves.</p>
-      <p><strong>Marshall–Lerner:</strong> a depreciation improves CA only if PEDx + PEDm > 1.<br>
-      <strong>J-curve:</strong> short-run CA worsens (volume slow to adjust); long-run improves.</p>
-    </div>
-
-    <div class="hl-section hl-only">
-      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
-      <h3>4.5 Terms of Trade & Trade Integration</h3>
-      <p><strong>Terms of trade</strong> = (Index of export prices / Index of import prices) × 100.</p>
-      <p>Improvement: a unit of exports now buys more imports — but if caused by falling import demand from recession, it's a mixed signal.</p>
-      <p><strong>Trade integration:</strong> free trade area → customs union → common market → economic union → monetary union (e.g., EU evolution).</p>
-    </div>
-  `,
-
-  5: `
-    <div class="note-section">
-      <h2>5.1 Growth vs Development</h2>
-      <div class="key-concept">
-        <div class="label">Distinction</div>
-        <p><strong>Growth:</strong> rise in real GDP. <strong>Development:</strong> multidimensional improvement in well-being (income, health, education, freedoms, environment).</p>
-      </div>
-      <p><strong>HDI</strong> combines life expectancy, education (mean & expected years schooling), and GNI per capita.</p>
-      <p><strong>Other indicators:</strong> Gender Inequality Index, Inequality-adjusted HDI, Multidimensional Poverty Index.</p>
-    </div>
-
-    <div class="note-section">
-      <h2>5.2 Poverty and Inequality</h2>
-      <ul class="tight">
-        <li><strong>Absolute poverty:</strong> below an income threshold (World Bank: $2.15/day in 2017 PPP).</li>
-        <li><strong>Relative poverty:</strong> low income relative to society's median.</li>
-        <li><strong>Lorenz curve & Gini:</strong> graphical and numerical measures of inequality.</li>
+        <li><strong>Lorenz curve:</strong> cumulative income (y) plotted against cumulative population (x). The further the curve from the line of equality, the greater the inequality.</li>
+        <li><strong>Gini coefficient:</strong> 0 = perfect equality, 1 = perfect inequality. Calculated as area between line of equality and Lorenz divided by total area beneath line of equality.</li>
+        <li><strong>Quintile / decile shares:</strong> share of total income held by the top/bottom 20%/10%.</li>
       </ul>
       <div class="svg-diagram">
         <svg class="econ-svg" viewBox="0 0 380 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lorenz curve and line of equality">
@@ -746,31 +1066,471 @@ const STUDY_CONTENT = {
           <text x="14" y="180" font-size="11" font-weight="700" fill="currentColor" transform="rotate(-90 18 180)">% cumulative income</text>
           <text x="120" y="354" font-size="11" font-weight="700" fill="currentColor">% cumulative population</text>
         </svg>
-        <div class="svg-caption">The shaded gap between the line of equality and the Lorenz curve grows as inequality rises (higher Gini).</div>
+        <div class="svg-caption">Higher Gini = greater inequality. Scandinavia ≈ 0.25; South Africa ≈ 0.63.</div>
+      </div>
+
+      <h3>Measuring poverty</h3>
+      <ul class="tight">
+        <li><strong>Absolute poverty:</strong> below an income required for basic needs (World Bank: $2.15/day in 2017 PPP).</li>
+        <li><strong>Relative poverty:</strong> below a fraction (often 50% or 60%) of median income.</li>
+        <li><strong>Multidimensional Poverty Index (MPI):</strong> health, education, living standards.</li>
+      </ul>
+
+      <h3>Causes of inequality / poverty</h3>
+      <ul class="tight">
+        <li>Differences in education and skills.</li>
+        <li>Inheritance and wealth concentration.</li>
+        <li>Discrimination (gender, race, ethnicity).</li>
+        <li>Tax/transfer system design.</li>
+        <li>Globalisation and skill-biased technical change.</li>
+        <li>Geographic/structural disadvantage.</li>
+      </ul>
+
+      <h3>Consequences of inequality</h3>
+      <ul class="tight">
+        <li>Lower social mobility ("Great Gatsby curve").</li>
+        <li>Health and crime impacts (Wilkinson &amp; Pickett).</li>
+        <li>Lower aggregate demand if MPC of poor &gt; rich.</li>
+        <li>Political instability.</li>
+      </ul>
+
+      <h3>Government policies on inequality &amp; poverty</h3>
+      <ul class="tight">
+        <li><strong>Progressive taxation:</strong> higher rates on higher incomes.</li>
+        <li><strong>Transfer payments:</strong> unemployment benefits, child benefit, pensions.</li>
+        <li><strong>Minimum wage</strong> (price floor effect — see Unit 2).</li>
+        <li><strong>Direct provision</strong> of education, healthcare, housing.</li>
+        <li><strong>Labour market policies:</strong> training, anti-discrimination, parental leave.</li>
+        <li><strong>Universal Basic Income</strong> (debated).</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>3.5 Demand Management — Monetary Policy</h2>
+      <p>Conducted by the central bank (Fed, BoE, ECB) — usually independent of government.</p>
+      <h3>Tools</h3>
+      <ul class="tight">
+        <li><strong>Policy interest rate</strong> (Fed funds rate, base rate).</li>
+        <li><strong>Open market operations</strong> (buy/sell government bonds to change money supply).</li>
+        <li><strong>Quantitative easing (QE)</strong> — large-scale asset purchases when rates near zero (post-2008, COVID).</li>
+        <li><strong>Reserve requirements</strong> for banks.</li>
+        <li><strong>Forward guidance</strong> — communicating future policy.</li>
+      </ul>
+
+      <h3>Mechanism (interest rate channel)</h3>
+      <p>↓Interest rate → cheaper borrowing → ↑C, ↑I → ↑AD → ↑Y, ↑PL.<br>Also: weaker currency → ↑(X−M); higher asset prices → wealth effect → ↑C.</p>
+
+      <h3>Strengths</h3>
+      <ul class="tight">
+        <li>Flexible, can change monthly.</li>
+        <li>Independent of political pressure.</li>
+        <li>Affects whole economy.</li>
+      </ul>
+
+      <h3>Weaknesses</h3>
+      <ul class="tight">
+        <li>Time lags (12–18 months).</li>
+        <li><strong>Liquidity trap</strong> at zero lower bound (Japan's "lost decades", post-2008 Eurozone).</li>
+        <li>Banks may not pass on rate cuts; consumers/firms may not borrow.</li>
+        <li>Asset price inflation, exacerbating inequality.</li>
+        <li>Limited reach in cost-push inflation.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>3.6 Demand Management — Fiscal Policy</h2>
+      <p>Government uses spending (G) and taxation (T) to influence AD.</p>
+      <h3>Tools</h3>
+      <ul class="tight">
+        <li><strong>Direct taxes</strong> (income, corporate, capital gains).</li>
+        <li><strong>Indirect taxes</strong> (VAT, excise) — also a microeconomic tool.</li>
+        <li><strong>Government spending</strong> (current and capital).</li>
+        <li><strong>Discretionary policy</strong> vs <strong>automatic stabilisers</strong> (progressive tax + welfare adjust automatically over the cycle).</li>
+        <li><strong>Budget balance:</strong> balanced, surplus, deficit.</li>
+      </ul>
+
+      <h3>Strengths</h3>
+      <ul class="tight">
+        <li>Direct effect on AD components (G is part of AD).</li>
+        <li>Targeted (e.g., infrastructure in deprived areas).</li>
+        <li>Effective at zero lower bound when monetary policy is impotent.</li>
+        <li>Capital spending can also shift LRAS (supply-side benefit).</li>
+      </ul>
+
+      <h3>Weaknesses</h3>
+      <ul class="tight">
+        <li>Time lags (recognition, decision, implementation).</li>
+        <li>Political bias toward deficits, less appetite for tax rises.</li>
+        <li><strong>Crowding out:</strong> government borrowing pushes up interest rates, reducing private investment.</li>
+        <li>Public-debt sustainability concerns.</li>
+        <li>Ricardian equivalence: consumers may save in expectation of future taxes.</li>
+      </ul>
+
+      <div class="hl-section hl-only" style="margin-top:14px;">
+        <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+        <h3>The Keynesian multiplier</h3>
+        <p><strong>k = 1 / (1 − MPC) = 1 / (MPS + MPT + MPM)</strong></p>
+        <p>An autonomous injection (G, I, X) raises GDP by k × the injection. <em>Example:</em> MPC = 0.6 → k = 2.5. A $200m injection raises GDP by $500m through successive rounds of induced spending.</p>
+        <p><strong>Determinants of k:</strong> higher MPC, lower MPS/MPT/MPM → larger multiplier.</p>
+        <h3>Accelerator effect</h3>
+        <p>Investment depends on the <em>change</em> in output, not the level. Accelerator + multiplier together produce business cycle volatility.</p>
       </div>
     </div>
 
     <div class="note-section">
-      <h2>5.3 Barriers to Development</h2>
+      <h2>3.7 Supply-Side Policies</h2>
+      <p>Aim: shift LRAS right (raise potential output).</p>
+      <h3>Market-based policies</h3>
       <ul class="tight">
-        <li>Poverty cycle: low income → low saving/investment → low productivity → low income.</li>
-        <li>Institutional: weak rule of law, corruption, poor property rights, gender inequality.</li>
-        <li>International: commodity price volatility, debt burden, brain drain, protectionism abroad.</li>
-        <li>Health & education deficits.</li>
+        <li>Labour market reforms (reduce trade union power, lower minimum wage, reduce benefits).</li>
+        <li>Lower direct taxes (income, corporate) to incentivise work and investment.</li>
+        <li>Deregulation (loosen rules in product/financial markets).</li>
+        <li>Privatisation (transfer state firms to private sector).</li>
+        <li>Trade liberalisation (lower tariffs).</li>
+      </ul>
+      <h3>Interventionist policies</h3>
+      <ul class="tight">
+        <li>Investment in education and training.</li>
+        <li>Investment in infrastructure.</li>
+        <li>R&amp;D subsidies and tax credits.</li>
+        <li>Industrial policy (support strategic sectors).</li>
+      </ul>
+      <h3>Evaluation</h3>
+      <ul class="tight">
+        <li>Long-term gains but slow to materialise.</li>
+        <li>Market-based policies may worsen inequality and erode workers' rights.</li>
+        <li>Interventionist policies costly and risk government failure.</li>
+        <li>Best as part of a balanced policy mix with demand-side measures.</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>Common exam pitfalls — Unit 3</summary>
+      <ul class="tight">
+        <li>Confusing nominal and real GDP — always check for inflation adjustment.</li>
+        <li>Forgetting AD shift vs movement along AD distinction (price level effect).</li>
+        <li>Treating monetary and fiscal policy as identical in mechanism — they have different lags and channels.</li>
+        <li>Ignoring crowding out when discussing fiscal expansion.</li>
+        <li>Not distinguishing equity from equality.</li>
+        <li>Assuming SRAS shift is permanent — only LRAS captures permanent capacity change.</li>
+        <li>Forgetting that supply-side policies take years to bear fruit (don't claim quick effects on inflation).</li>
+      </ul>
+    </details>
+  `,
+
+  4: `
+    <div class="note-section">
+      <h2>4.1 Benefits of International Trade</h2>
+      <div class="key-concept">
+        <div class="label">Comparative advantage (Ricardo)</div>
+        <p>A country has a comparative advantage in producing a good if its <strong>opportunity cost</strong> of producing that good is lower than another country's. Mutual specialisation according to comparative advantage <strong>expands the global PPF</strong>, allowing both countries to consume more.</p>
+      </div>
+      <ul class="tight">
+        <li><strong>Absolute advantage:</strong> producing more of a good with the same inputs. Not the same as comparative — comp adv depends on OC.</li>
+        <li><strong>Other gains from trade:</strong> economies of scale, greater variety, increased competition, technology transfer, efficient resource allocation, faster growth.</li>
+        <li><strong>Limitations of CA theory:</strong> assumes 2 countries / 2 goods, constant returns, factor mobility, full employment, no transport costs, no externalities. Reality includes structural unemployment, environmental costs, dependency on volatile commodity exports.</li>
+      </ul>
+      <div class="hl-section hl-only" style="margin-top:14px;">
+        <div class="label" style="color: var(--hl); font-weight: 700;">HL CALCULATION</div>
+        <p>Worked example. Country A can produce 40 wheat or 20 cloth (1 cloth = 2 wheat). Country B can produce 30 wheat or 30 cloth (1 cloth = 1 wheat).</p>
+        <ul class="tight">
+          <li>OC of cloth lowest in B (1W) → B specialises in cloth.</li>
+          <li>OC of wheat lowest in A (½ cloth) → A specialises in wheat.</li>
+          <li>Trade at any rate between 1W and 2W per cloth makes both better off.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>4.2 Types of Trade Protection</h2>
+      <table>
+        <tr><th>Tool</th><th>Effect</th><th>Welfare effect</th></tr>
+        <tr><td>Tariff</td><td>Tax on imports → ↑P, ↓Q imported</td><td>Producers ↑, government ↑, consumers ↓, DWL</td></tr>
+        <tr><td>Quota</td><td>Limit on quantity imported</td><td>Like tariff but no gov revenue (unless auctioned); foreign producers may capture rent</td></tr>
+        <tr><td>Production subsidy</td><td>Lowers domestic producer cost</td><td>Producers ↑, taxpayers ↓; less DWL than tariff</td></tr>
+        <tr><td>Admin / NTBs</td><td>Standards, licensing, paperwork</td><td>Raise costs of imports</td></tr>
+      </table>
+      <div class="svg-diagram">
+        <svg class="econ-svg" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Welfare effects of a tariff">
+          <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="60" y1="280" x2="480" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="60,30 56,40 64,40" fill="currentColor"/>
+          <polygon points="490,280 480,276 480,284" fill="currentColor"/>
+          <line x1="120" y1="260" x2="420" y2="60" stroke="var(--secondary)" stroke-width="2.5"/>
+          <text x="422" y="60" font-size="11" fill="var(--secondary)" font-weight="800">S(domestic)</text>
+          <line x1="120" y1="80" x2="420" y2="280" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="422" y="282" font-size="11" fill="var(--primary)" font-weight="800">D(domestic)</text>
+          <line x1="60" y1="220" x2="450" y2="220" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="455" y="224" font-size="11" fill="currentColor" font-weight="800">Pw</text>
+          <line x1="60" y1="180" x2="450" y2="180" stroke="var(--bad)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="455" y="184" font-size="11" fill="var(--bad)" font-weight="800">Pw+t</text>
+          <text x="155" y="240" font-size="10" fill="var(--muted)">Q1</text>
+          <text x="350" y="240" font-size="10" fill="var(--muted)">Q2</text>
+          <text x="190" y="200" font-size="10" fill="var(--muted)">Q3</text>
+          <text x="305" y="200" font-size="10" fill="var(--muted)">Q4</text>
+          <polygon points="160,220 200,180 200,220" fill="var(--bad)" opacity="0.25"/>
+          <polygon points="350,220 310,180 310,220" fill="var(--bad)" opacity="0.25"/>
+          <polygon points="200,180 310,180 310,220 200,220" fill="var(--good)" opacity="0.18"/>
+          <text x="40" y="30" font-size="12" font-weight="800" fill="currentColor">P</text>
+          <text x="485" y="296" font-size="12" font-weight="800" fill="currentColor">Q</text>
+        </svg>
+        <div class="svg-caption">Tariff raises price from Pw to Pw+t. Domestic supply rises (Q1→Q3); imports fall (Q4−Q3 vs Q2−Q1). Government gets the green box; red triangles are deadweight loss.</div>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>4.3 Arguments For and Against Trade Protection</h2>
+      <h3>Arguments FOR protection</h3>
+      <ul class="tight">
+        <li><strong>Infant industry:</strong> protect young industries until they reach economies of scale (debated empirically).</li>
+        <li><strong>Anti-dumping:</strong> respond to foreign firms selling below cost.</li>
+        <li><strong>National security:</strong> keep strategic industries domestic (defence, food, energy).</li>
+        <li><strong>Diversification:</strong> reduce reliance on primary exports.</li>
+        <li><strong>Protect employment:</strong> short-term cushion against import competition.</li>
+        <li><strong>Correct externalities:</strong> tariffs on goods produced abroad with low standards.</li>
+        <li><strong>Improve current account.</strong></li>
+      </ul>
+      <h3>Arguments AGAINST</h3>
+      <ul class="tight">
+        <li>Higher prices, lower consumer choice and surplus.</li>
+        <li>Allocative inefficiency, deadweight loss.</li>
+        <li>Retaliation (trade wars — Smoot–Hawley 1930, US–China 2018).</li>
+        <li>Reduced incentive to innovate.</li>
+        <li>Hurts exporters via currency appreciation.</li>
+        <li>Hurts developing countries dependent on exports.</li>
       </ul>
     </div>
 
     <div class="note-section">
-      <h2>5.4 Strategies for Development</h2>
+      <h2>4.4 Economic Integration</h2>
+      <p>The progressive removal of trade barriers and harmonisation of policies between countries.</p>
+      <table>
+        <tr><th>Stage</th><th>Internal trade</th><th>Common external policy?</th><th>Free factor movement?</th><th>Harmonised policy?</th></tr>
+        <tr><td>Free trade area</td><td>Yes (low/no tariffs)</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>Customs union</td><td>Yes</td><td>Yes (common external tariff)</td><td>No</td><td>No</td></tr>
+        <tr><td>Common market</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Some</td></tr>
+        <tr><td>Economic union</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes (e.g., regulation)</td></tr>
+        <tr><td>Monetary union</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Plus single currency &amp; central bank</td></tr>
+      </table>
       <ul class="tight">
-        <li><strong>Trade strategies:</strong> diversification away from primary exports, regional integration.</li>
-        <li><strong>FDI:</strong> brings capital, jobs, technology — risks include profit repatriation, low linkage to local economy, environmental harm.</li>
-        <li><strong>Aid:</strong> bilateral, multilateral, NGO; tied vs untied. Concerns over dependency.</li>
-        <li><strong>Microfinance:</strong> small loans for the unbanked (Grameen Bank).</li>
-        <li><strong>Debt relief</strong> (HIPC initiative).</li>
-        <li><strong>SDGs:</strong> 17 global goals to 2030.</li>
+        <li><strong>Examples:</strong> NAFTA/USMCA (FTA), EU Customs Union, EU Single Market, Eurozone (monetary union).</li>
+        <li><strong>Trade creation:</strong> shifting from high-cost domestic producer to low-cost partner. Welfare-improving.</li>
+        <li><strong>Trade diversion:</strong> shifting from low-cost non-member to higher-cost partner. Welfare-reducing.</li>
+        <li><strong>WTO:</strong> 164 members; rules-based system, dispute settlement, MFN principle. Doha round stalled — many trade deals now bilateral/regional.</li>
+        <li><strong>Costs of monetary union:</strong> loss of independent monetary policy and exchange rate as adjustment tool (Eurozone crisis 2010–12).</li>
       </ul>
     </div>
+
+    <div class="note-section">
+      <h2>4.5 Exchange Rates</h2>
+      <h3>Systems</h3>
+      <ul class="tight">
+        <li><strong>Floating:</strong> set by market demand &amp; supply for the currency. Auto-adjusts to BoP shocks; volatile.</li>
+        <li><strong>Fixed:</strong> central bank pegs to another currency / basket / gold; uses reserves and interest rates to maintain. Provides certainty but ties policy to peg (e.g., Hong Kong dollar pegged to USD).</li>
+        <li><strong>Managed float:</strong> mostly market-determined with intervention to smooth volatility (most major currencies).</li>
+      </ul>
+      <h3>Causes of changes (floating)</h3>
+      <ul class="tight">
+        <li>Trade flows (X demand currency, M supply currency).</li>
+        <li>Capital flows / FDI / portfolio investment.</li>
+        <li>Interest rate differentials (carry trade).</li>
+        <li>Inflation differentials (PPP).</li>
+        <li>Speculation, expectations.</li>
+        <li>Government / central-bank intervention.</li>
+      </ul>
+      <h3>Consequences of depreciation/devaluation</h3>
+      <ul class="tight">
+        <li>Exports cheaper abroad (X ↑); imports dearer (M ↓) → CA improves <em>if</em> Marshall–Lerner holds.</li>
+        <li>Imported inflation (cost-push).</li>
+        <li>Real foreign-currency debt rises (problem for emerging markets).</li>
+        <li>Higher AD → output and employment may rise.</li>
+      </ul>
+      <div class="hl-section hl-only" style="margin-top:14px;">
+        <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+        <p><strong>Overvalued currency:</strong> above market equilibrium — hurts exports, encourages imports, may worsen CA.<br>
+        <strong>Undervalued currency:</strong> below equilibrium — boosts exports (China alleged history), risks inflation.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>4.6 Balance of Payments</h2>
+      <p>BoP records all economic transactions between residents and the rest of the world.</p>
+      <ul class="tight">
+        <li><strong>Current account</strong> = trade in goods + trade in services + primary income (wages, investment income) + secondary income (transfers, remittances).</li>
+        <li><strong>Capital account:</strong> small — transfers of capital, sales of non-produced assets.</li>
+        <li><strong>Financial account:</strong> FDI, portfolio investment, reserve assets, other investment.</li>
+        <li>Total BoP must balance — a CA deficit must be matched by a financial account surplus or running down reserves.</li>
+      </ul>
+      <h3>Persistent CA deficit — implications</h3>
+      <ul class="tight">
+        <li>Reliance on capital inflows / borrowing → vulnerability if confidence falls.</li>
+        <li>Depreciation pressure on currency.</li>
+        <li>Possible loss of domestic industry if structural.</li>
+        <li>But: may reflect strong investment opportunities; not always bad (US has run CA deficits for decades).</li>
+      </ul>
+      <h3>Persistent CA surplus — implications</h3>
+      <ul class="tight">
+        <li>Currency appreciation pressure.</li>
+        <li>May reflect under-consumption (Germany, China criticised).</li>
+        <li>Can fuel trade tensions / protectionism abroad.</li>
+      </ul>
+      <div class="hl-section hl-only" style="margin-top:14px;">
+        <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+        <p><strong>Marshall–Lerner condition:</strong> a depreciation improves the current account if PEDx + PEDm &gt; 1.</p>
+        <p><strong>J-curve:</strong> short-run worsening (import bills rise quickly while export volumes lag) → long-run improvement.</p>
+        <p><strong>Terms of trade:</strong> ToT = (Px / Pm) × 100. ↑ToT means a unit of exports buys more imports — but if caused by falling import demand from recession, the signal is mixed.</p>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>4.7 Sustainable Development</h2>
+      <div class="key-concept">
+        <div class="label">Brundtland definition</div>
+        <p>"Development that meets the needs of the present without compromising the ability of future generations to meet their own needs."</p>
+      </div>
+      <ul class="tight">
+        <li>Tension: economic growth often accompanies environmental degradation, depletion of non-renewables, climate change.</li>
+        <li><strong>Pigouvian taxes</strong> on carbon, fuel.</li>
+        <li><strong>Tradable permits</strong> (cap and trade — EU ETS).</li>
+        <li><strong>Regulation:</strong> emission standards, deforestation bans.</li>
+        <li><strong>International agreements:</strong> Paris Agreement, Montreal Protocol (CFCs success story).</li>
+        <li><strong>Subsidies:</strong> renewables, EVs.</li>
+        <li><strong>Education / nudges</strong> for behavioural change.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>4.8 Measuring Development</h2>
+      <h3>Why GDP is insufficient</h3>
+      <p>GDP captures economic activity but not health, education, freedoms, environment, distribution.</p>
+      <h3>HDI (Human Development Index)</h3>
+      <p>Composite of three dimensions, each indexed 0–1:</p>
+      <ul class="tight">
+        <li><strong>Health:</strong> life expectancy at birth.</li>
+        <li><strong>Education:</strong> mean years of schooling + expected years of schooling.</li>
+        <li><strong>Income:</strong> log of GNI per capita (PPP).</li>
+      </ul>
+      <p>HDI = geometric mean of the three indices. Categories: Very High, High, Medium, Low.</p>
+      <h3>Other measures</h3>
+      <ul class="tight">
+        <li><strong>Inequality-adjusted HDI (IHDI):</strong> penalises HDI for inequality across the three dimensions.</li>
+        <li><strong>Multidimensional Poverty Index (MPI):</strong> deprivations across health, education, living standards.</li>
+        <li><strong>Gender Inequality Index (GII):</strong> reproductive health, empowerment, labour market.</li>
+        <li><strong>Happy Planet Index (HPI):</strong> well-being × life expectancy / ecological footprint.</li>
+        <li><strong>OECD Better Life Index:</strong> 11 dimensions including civic engagement and life satisfaction.</li>
+      </ul>
+      <h3>Limitations of composite indices</h3>
+      <ul class="tight">
+        <li>Arbitrary weights between dimensions.</li>
+        <li>Country-level averages mask within-country inequality.</li>
+        <li>Hard to capture freedoms, governance.</li>
+        <li>Data quality varies, especially for developing countries.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>4.9 Barriers to Economic Growth and Development</h2>
+      <h3>Domestic barriers</h3>
+      <ul class="tight">
+        <li><strong>Poverty cycle:</strong> low income → low saving → low investment → low productivity → low income.</li>
+        <li><strong>Weak institutions:</strong> corruption, weak rule of law, poor property rights, ineffective bureaucracy.</li>
+        <li><strong>Dual economies:</strong> modern urban sector alongside subsistence rural sector.</li>
+        <li><strong>Health and education deficits.</strong></li>
+        <li><strong>Inadequate infrastructure</strong> (transport, energy, internet).</li>
+        <li><strong>Gender inequality</strong> reduces effective labour force.</li>
+        <li><strong>Resource curse:</strong> commodity-rich countries can suffer Dutch disease, rent-seeking, weak diversification.</li>
+        <li><strong>Capital flight:</strong> savings leaving for safer economies.</li>
+      </ul>
+      <h3>International barriers</h3>
+      <ul class="tight">
+        <li>Volatile commodity prices.</li>
+        <li>Heavy debt burden / debt service.</li>
+        <li>Brain drain.</li>
+        <li>Protectionism in developed economies (tariff escalation against processed goods).</li>
+        <li>Tied aid.</li>
+        <li>Climate vulnerability.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>4.10 Strategies for Growth and Development</h2>
+
+      <h3>Trade strategies</h3>
+      <ul class="tight">
+        <li><strong>Export-led growth:</strong> outward-looking; success stories — South Korea, Taiwan, Singapore.</li>
+        <li><strong>Import substitution:</strong> protect domestic infant industries (mostly poor record — Latin America 1960s–80s).</li>
+        <li><strong>Diversification:</strong> reduce dependence on a narrow basket of primary exports.</li>
+        <li><strong>Regional trade integration.</strong></li>
+      </ul>
+
+      <h3>Market-based supply-side</h3>
+      <ul class="tight">
+        <li>Trade liberalisation, deregulation, privatisation, lower direct taxes.</li>
+        <li>Risks: inequality, exposure to global volatility.</li>
+      </ul>
+
+      <h3>Interventionist supply-side</h3>
+      <ul class="tight">
+        <li>Investment in education, health, infrastructure.</li>
+        <li>Industrial policy in strategic sectors.</li>
+        <li>R&amp;D support.</li>
+      </ul>
+
+      <h3>FDI &amp; multinational corporations (MNCs)</h3>
+      <ul class="tight">
+        <li><strong>Benefits:</strong> capital, jobs, technology, exports, tax revenue, links to global value chains.</li>
+        <li><strong>Drawbacks:</strong> profit repatriation, weak local linkages, environmental harm, tax avoidance, political influence, race-to-the-bottom on regulation.</li>
+        <li><strong>Effectiveness depends on:</strong> host institutions, education, bargaining power, local-content rules.</li>
+      </ul>
+
+      <h3>Foreign aid</h3>
+      <ul class="tight">
+        <li>Bilateral, multilateral (World Bank, IMF), NGO.</li>
+        <li>Tied vs untied; concessional vs grant.</li>
+        <li><strong>Pros:</strong> emergency relief, capital, knowledge transfer.</li>
+        <li><strong>Cons:</strong> dependency, crowding out domestic effort, tied aid distortions, corruption.</li>
+      </ul>
+
+      <h3>Microfinance</h3>
+      <ul class="tight">
+        <li>Small loans for the unbanked (Grameen Bank).</li>
+        <li>Empowers women entrepreneurs.</li>
+        <li>Mixed evidence on poverty reduction; high interest rates; risk of indebtedness.</li>
+      </ul>
+
+      <h3>Debt relief</h3>
+      <ul class="tight">
+        <li>HIPC initiative (1996), MDRI (2005).</li>
+        <li>Frees fiscal space for health, education, investment.</li>
+        <li>Moral hazard concerns.</li>
+      </ul>
+
+      <h3>Social enterprise</h3>
+      <p>Businesses with explicit social/environmental missions reinvesting profit.</p>
+
+      <h3>Institutional change</h3>
+      <ul class="tight">
+        <li>Anti-corruption, judicial reform, land titling.</li>
+        <li>Property rights enforcement.</li>
+        <li>Gender equality (girls' education, labour market access, micro-credit).</li>
+      </ul>
+
+      <h3>SDGs</h3>
+      <p>17 UN Sustainable Development Goals (2015–2030): no poverty, zero hunger, good health, quality education, gender equality, clean water, affordable clean energy, decent work, industry/innovation, reduced inequalities, sustainable cities, responsible consumption, climate action, life below water, life on land, peace/justice, partnerships.</p>
+    </div>
+
+    <details>
+      <summary>Common exam pitfalls — Unit 4</summary>
+      <ul class="tight">
+        <li>Confusing absolute and comparative advantage — comp adv is the relevant concept for trade gains.</li>
+        <li>Drawing tariff diagrams without clearly labelling Pw, Pw+t, Q1–Q4, and the welfare areas.</li>
+        <li>Saying "depreciation always improves CA" — must mention Marshall–Lerner and J-curve.</li>
+        <li>Treating growth and development as synonyms.</li>
+        <li>Listing development strategies without evaluating context dependence.</li>
+        <li>Ignoring that strategies often work best in combination (e.g., FDI + education + institutions).</li>
+        <li>Forgetting sustainability is now central to the new syllabus — weave it into evaluation.</li>
+      </ul>
+    </details>
   `
 };
 
@@ -791,16 +1551,16 @@ const SHORT_QUESTIONS = [
   {q:"Explain, using a diagram, the welfare effects of a tariff on imported steel.", marks:6, unit:4, level:"SL", a:"At the world price Pw, domestic producers supply Q1, consumers demand Q2; imports = Q2 − Q1. A tariff raises price to Pw + t; domestic supply rises to Q3, demand falls to Q4. Producer surplus rises (a), government gains tariff revenue (c), consumer surplus falls (a + b + c + d). Net welfare loss = b + d (production and consumption distortions)."},
   {q:"Explain two reasons why a country might pursue protectionist policies.", marks:4, unit:4, level:"SL", a:"(1) Infant industry argument — protect new industries until they reach economies of scale. (2) Anti-dumping — counter foreign firms selling below cost. (3) Strategic/national security — keep critical industries domestic. (4) Diversification away from over-reliance on imports."},
   {q:"Define the <em>terms of trade</em>.", marks:2, unit:4, level:"HL", a:"The ratio of an index of export prices to an index of import prices, multiplied by 100: TOT = (Px/Pm) × 100. An increase means a unit of exports buys more imports."},
-  {q:"Distinguish between economic growth and economic development.", marks:4, unit:5, level:"SL", a:"Growth is a rise in real GDP — a quantitative measure. Development is a multidimensional improvement in well-being including income, health, education, gender equality, environment, freedoms — typically measured by HDI or MPI. Growth can occur without development (e.g., resource booms with poor distribution)."},
-  {q:"Explain how the Gini coefficient measures inequality.", marks:3, unit:5, level:"SL", a:"The Gini is the ratio of the area between the Lorenz curve and the line of equality to the total area beneath the line of equality. It runs from 0 (perfect equality) to 1 (perfect inequality). Higher values indicate greater income inequality."},
-  {q:"Evaluate the use of microfinance as a development strategy.", marks:8, unit:5, level:"SL", a:"<strong>Strengths:</strong> reaches the unbanked, empowers women, supports microenterprise, lower default rates than expected (Grameen). <strong>Weaknesses:</strong> very high interest rates, evidence on poverty reduction is mixed, can lead to indebtedness, doesn't address structural barriers (infrastructure, education). <strong>Conclusion:</strong> useful complement to broader strategies (education, infrastructure, governance reform), not a silver bullet — its effectiveness is context-dependent."},
-  {q:"Discuss the effect of foreign direct investment on a developing economy.", marks:8, unit:5, level:"SL", a:"<strong>Benefits:</strong> capital injection, technology transfer, job creation, tax revenue, links to global value chains. <strong>Drawbacks:</strong> profit repatriation, environmental harm, weak local linkages (export enclaves), cultural/political tensions. <strong>Evaluation:</strong> depends on host institutions — strong governance, education, and bargaining capacity (e.g., local content rules) capture more benefits. Provide example (e.g., automotive FDI in Vietnam vs extractive FDI in some African economies)."},
+  {q:"Distinguish between economic growth and economic development.", marks:4, unit:4, level:"SL", a:"Growth is a rise in real GDP — a quantitative measure. Development is a multidimensional improvement in well-being including income, health, education, gender equality, environment, freedoms — typically measured by HDI or MPI. Growth can occur without development (e.g., resource booms with poor distribution)."},
+  {q:"Explain how the Gini coefficient measures inequality.", marks:3, unit:4, level:"SL", a:"The Gini is the ratio of the area between the Lorenz curve and the line of equality to the total area beneath the line of equality. It runs from 0 (perfect equality) to 1 (perfect inequality). Higher values indicate greater income inequality."},
+  {q:"Evaluate the use of microfinance as a development strategy.", marks:8, unit:4, level:"SL", a:"<strong>Strengths:</strong> reaches the unbanked, empowers women, supports microenterprise, lower default rates than expected (Grameen). <strong>Weaknesses:</strong> very high interest rates, evidence on poverty reduction is mixed, can lead to indebtedness, doesn't address structural barriers (infrastructure, education). <strong>Conclusion:</strong> useful complement to broader strategies (education, infrastructure, governance reform), not a silver bullet — its effectiveness is context-dependent."},
+  {q:"Discuss the effect of foreign direct investment on a developing economy.", marks:8, unit:4, level:"SL", a:"<strong>Benefits:</strong> capital injection, technology transfer, job creation, tax revenue, links to global value chains. <strong>Drawbacks:</strong> profit repatriation, environmental harm, weak local linkages (export enclaves), cultural/political tensions. <strong>Evaluation:</strong> depends on host institutions — strong governance, education, and bargaining capacity (e.g., local content rules) capture more benefits. Provide example (e.g., automotive FDI in Vietnam vs extractive FDI in some African economies)."},
   {q:"Define <em>monopoly</em>.", marks:2, unit:2, level:"HL", a:"A market structure in which a single firm controls supply and faces high barriers to entry, allowing it to set price (price maker)."},
   {q:"Explain how a monopolist sets price and output to maximise profit.", marks:4, unit:2, level:"HL", a:"The monopolist faces a downward-sloping demand curve and chooses Q where MR = MC. Price is then read off the demand curve at that quantity (P > MR > MC). Profit is (P − ATC) × Q. The monopolist produces less, charges more than under perfect competition, generating allocative inefficiency."},
   {q:"Explain the Keynesian multiplier.", marks:4, unit:3, level:"HL", a:"An autonomous injection (G, I, X) increases GDP by k × the injection, where k = 1/(1−MPC) = 1/(MPS+MPT+MPM). Successive rounds of consumption propagate the initial spending until leakages exhaust it. Larger MPC → larger k. Example: MPC=0.75 → k=4."},
   {q:"Calculate the inflation rate if the CPI rises from 110 to 116.6.", marks:2, unit:3, level:"SL", a:"Inflation = (116.6 − 110) / 110 × 100 = 6%."},
   {q:"Explain two ways in which a depreciation of the currency might improve the current account.", marks:4, unit:4, level:"SL", a:"(1) Exports become cheaper in foreign currency, raising export demand. (2) Imports become more expensive, reducing import demand. Provided the Marshall–Lerner condition holds (PEDx + PEDm > 1), the current account improves; the J-curve suggests the improvement comes only after a lag."},
-  {q:"Explain two reasons why economic growth may not lead to development.", marks:4, unit:5, level:"SL", a:"(1) Inequality — gains may concentrate at the top, leaving median welfare unchanged. (2) Environmental degradation reduces long-term well-being. (3) Growth in extractive sectors may bypass health/education improvements. (4) Without good institutions, gains may not translate into public services."},
+  {q:"Explain two reasons why economic growth may not lead to development.", marks:4, unit:4, level:"SL", a:"(1) Inequality — gains may concentrate at the top, leaving median welfare unchanged. (2) Environmental degradation reduces long-term well-being. (3) Growth in extractive sectors may bypass health/education improvements. (4) Without good institutions, gains may not translate into public services."},
 ];
 
 // --- CALC QUESTIONS ---
@@ -857,9 +1617,9 @@ const MCQS = [
   {q:"Imposing a tariff on imports will most likely:", opts:["Increase consumer surplus","Reduce domestic production","Reduce imports","Lower the price paid by consumers"], correct:2, explain:"Tariffs raise import prices, reducing imports and shifting some demand to domestic producers.", unit:4, level:"SL"},
   {q:"The Marshall–Lerner condition states that a depreciation will improve the current account if:", opts:["PEDx + PEDm < 1","PEDx + PEDm > 1","PEDx − PEDm > 1","PEDx × PEDm > 1"], correct:1, explain:"Sum of price elasticities of demand for exports and imports must exceed 1.", unit:4, level:"SL"},
   {q:"In the short run after a depreciation, the current account often:", opts:["Improves immediately","Worsens before improving","Is unaffected","Becomes a surplus instantly"], correct:1, explain:"This is the J-curve: import bills rise quickly while export volumes adjust slowly.", unit:4, level:"SL"},
-  {q:"HDI does NOT include:", opts:["Life expectancy","GNI per capita","Mean years of schooling","Gini coefficient"], correct:3, explain:"HDI uses life expectancy, education, and income; the Gini is a separate measure of inequality.", unit:5, level:"SL"},
-  {q:"A Gini coefficient of 0 represents:", opts:["Perfect inequality","Perfect equality","High poverty","High development"], correct:1, explain:"0 = perfectly equal income distribution; 1 = perfectly unequal.", unit:5, level:"SL"},
-  {q:"Foreign direct investment (FDI) is best described as:", opts:["Short-term portfolio capital","Government-to-government aid","Investment by foreign firms in productive assets in another country","Tariff revenue"], correct:2, explain:"FDI involves a foreign firm taking a meaningful stake or building productive assets abroad.", unit:5, level:"SL"},
+  {q:"HDI does NOT include:", opts:["Life expectancy","GNI per capita","Mean years of schooling","Gini coefficient"], correct:3, explain:"HDI uses life expectancy, education, and income; the Gini is a separate measure of inequality.", unit:4, level:"SL"},
+  {q:"A Gini coefficient of 0 represents:", opts:["Perfect inequality","Perfect equality","High poverty","High development"], correct:1, explain:"0 = perfectly equal income distribution; 1 = perfectly unequal.", unit:4, level:"SL"},
+  {q:"Foreign direct investment (FDI) is best described as:", opts:["Short-term portfolio capital","Government-to-government aid","Investment by foreign firms in productive assets in another country","Tariff revenue"], correct:2, explain:"FDI involves a foreign firm taking a meaningful stake or building productive assets abroad.", unit:4, level:"SL"},
   {q:"A monopoly is allocatively inefficient because it produces where:", opts:["P = MC","P > MC","P < MC","MC = ATC"], correct:1, explain:"Monopolies set MR = MC; since P > MR, P > MC, meaning resources are under-allocated to the good.", unit:2, level:"HL"},
   {q:"In perfect competition in the long run, firms earn:", opts:["Abnormal profit","Normal profit only","Losses","Government subsidies"], correct:1, explain:"Free entry/exit eliminates abnormal profits in the long run.", unit:2, level:"HL"},
   {q:"In a prisoner's dilemma, dominant-strategy outcome is:", opts:["Both cooperate","Both defect","One cooperates, one defects","Random"], correct:1, explain:"Each prisoner's best response, given mistrust, is to defect — leading to a Pareto-inferior outcome.", unit:2, level:"HL"},
