@@ -1,0 +1,1680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IB Econ Hub</title>
+<style>
+  :root {
+    --bg: #f7f7fb;
+    --panel: #ffffff;
+    --panel-2: #f1f3f9;
+    --text: #1a1a2e;
+    --muted: #5b5f7a;
+    --border: #e3e6ef;
+    --primary: #4f46e5;
+    --primary-2: #6366f1;
+    --secondary: #0891b2;
+    --hl: #9333ea;
+    --good: #16a34a;
+    --bad: #dc2626;
+    --shadow: 0 1px 3px rgba(20,20,40,.06), 0 4px 14px rgba(20,20,40,.06);
+    --radius: 14px;
+  }
+  body.dark {
+    --bg: #0e0f1a;
+    --panel: #161827;
+    --panel-2: #1e2133;
+    --text: #e8e9f3;
+    --muted: #9aa0bd;
+    --border: #2a2d44;
+    --primary: #818cf8;
+    --primary-2: #a5b4fc;
+    --secondary: #22d3ee;
+    --hl: #c084fc;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; height:100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    transition: background .25s, color .25s;
+  }
+  a { color: var(--primary); text-decoration: none; }
+  button {
+    font-family: inherit; cursor: pointer; border: 1px solid var(--border);
+    background: var(--panel); color: var(--text); border-radius: 10px; padding: 8px 14px;
+    transition: all .15s;
+  }
+  button:hover { border-color: var(--primary); }
+  button.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+  button.primary:hover { background: var(--primary-2); border-color: var(--primary-2); }
+  input, select, textarea {
+    font-family: inherit; font-size: 14px;
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+    outline: none; transition: border-color .15s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+
+  /* Layout */
+  .app { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .sidebar {
+    background: var(--panel); border-right: 1px solid var(--border);
+    padding: 20px 14px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px 18px; }
+  .brand-logo {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 18px;
+  }
+  .brand-title { font-weight: 700; letter-spacing: .2px; }
+  .brand-sub { font-size: 11px; color: var(--muted); }
+
+  .toggles { display: flex; flex-direction: column; gap: 8px; padding: 0 6px 14px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); }
+  .switch {
+    position: relative; width: 42px; height: 24px; background: var(--panel-2);
+    border: 1px solid var(--border); border-radius: 999px; cursor: pointer; transition: background .15s;
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px;
+    background: var(--primary); border-radius: 50%; transition: left .15s, background .15s;
+  }
+  .switch.on { background: rgba(79,70,229,.18); }
+  .switch.on::after { left: 20px; }
+  .level-pill {
+    display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 700;
+    background: rgba(79,70,229,.12); color: var(--primary);
+  }
+  .level-pill.hl { background: rgba(147,51,234,.12); color: var(--hl); }
+
+  .nav { list-style: none; padding: 0; margin: 0; }
+  .nav li { }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 10px;
+    color: var(--text); font-size: 14px; cursor: pointer; user-select: none;
+    border: 1px solid transparent;
+  }
+  .nav-item:hover { background: var(--panel-2); }
+  .nav-item.active { background: rgba(79,70,229,.10); color: var(--primary); border-color: rgba(79,70,229,.18); font-weight: 600; }
+  .nav-icon { width: 18px; display: inline-grid; place-items: center; }
+  .nav-sub { padding-left: 28px; }
+  .nav-sub .nav-item { padding: 6px 10px; font-size: 13px; color: var(--muted); }
+  .nav-sub .nav-item.active { color: var(--primary); background: transparent; border-color: transparent; }
+
+  .main { padding: 32px 40px 80px; max-width: 1100px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 20px; margin: 28px 0 10px; }
+  h3 { font-size: 16px; margin: 22px 0 8px; color: var(--text); }
+  .page-sub { color: var(--muted); margin-bottom: 24px; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px; box-shadow: var(--shadow);
+  }
+  .grid { display: grid; gap: 16px; }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; }
+    .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+    .main { padding: 24px 18px 60px; }
+  }
+
+  /* Hide HL content when SL mode */
+  body.sl-mode .hl-only { display: none !important; }
+
+  .badge {
+    display: inline-block; font-size: 10.5px; padding: 2px 7px; border-radius: 999px;
+    font-weight: 700; letter-spacing: .3px; vertical-align: middle;
+  }
+  .badge.hl { background: rgba(147,51,234,.15); color: var(--hl); }
+  .badge.sl { background: rgba(8,145,178,.15); color: var(--secondary); }
+  .badge.unit { background: var(--panel-2); color: var(--muted); }
+
+  /* Study notes */
+  .note-section { margin-bottom: 22px; }
+  .key-concept {
+    background: linear-gradient(135deg, rgba(79,70,229,.08), rgba(8,145,178,.06));
+    border-left: 4px solid var(--primary);
+    padding: 14px 16px; border-radius: 8px; margin: 14px 0;
+  }
+  .key-concept .label {
+    font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .8px;
+  }
+  .hl-section {
+    background: linear-gradient(135deg, rgba(147,51,234,.06), rgba(147,51,234,.02));
+    border-left: 4px solid var(--hl);
+    padding: 14px 16px; border-radius: 8px; margin: 14px 0;
+  }
+
+  /* Flashcards */
+  .flash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .flashcard { perspective: 1000px; height: 200px; }
+  .flashcard-inner {
+    position: relative; width: 100%; height: 100%; transition: transform .55s;
+    transform-style: preserve-3d; cursor: pointer;
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute; inset: 0; backface-visibility: hidden; padding: 16px;
+    border-radius: var(--radius); border: 1px solid var(--border); background: var(--panel);
+    display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow);
+  }
+  .flashcard-back { transform: rotateY(180deg); background: var(--panel-2); }
+  .flashcard-term { font-weight: 700; font-size: 16px; }
+  .flashcard-def { font-size: 13.5px; overflow-y: auto; }
+  .flashcard-eg { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
+  .flashcard-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .learned-btn { font-size: 11px; padding: 4px 8px; border-radius: 999px; }
+  .learned-btn.on { background: var(--good); color: #fff; border-color: var(--good); }
+  .progress { background: var(--panel-2); height: 8px; border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
+  .progress-bar { background: linear-gradient(90deg, var(--primary), var(--secondary)); height: 100%; width: 0%; transition: width .35s; }
+
+  /* Practice */
+  .tabs { display: flex; gap: 6px; margin-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .tab { padding: 10px 14px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--muted); font-weight: 500; }
+  .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .qbox { padding: 16px; border-bottom: 1px solid var(--border); }
+  .qbox:last-child { border-bottom: none; }
+  .qhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .qmeta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .reveal { margin-top: 10px; padding: 12px 14px; background: var(--panel-2); border-radius: 10px; display: none; }
+  .reveal.show { display: block; }
+  .mc-options { display: grid; gap: 8px; margin: 10px 0; }
+  .mc-option {
+    text-align: left; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--panel); cursor: pointer;
+  }
+  .mc-option:hover { border-color: var(--primary); }
+  .mc-option.correct { background: rgba(22,163,74,.10); border-color: var(--good); color: var(--text); }
+  .mc-option.wrong { background: rgba(220,38,38,.10); border-color: var(--bad); color: var(--text); }
+
+  /* Calculator */
+  .calc-card { padding: 16px; }
+  .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; align-items: center; }
+  .calc-result { margin-top: 12px; padding: 12px; background: var(--panel-2); border-radius: 10px; font-size: 14px; }
+  .calc-result strong { color: var(--primary); font-size: 18px; }
+
+  /* Tutor */
+  .chat { display: flex; flex-direction: column; height: 70vh; min-height: 480px; }
+  .chat-msgs { flex: 1; overflow-y: auto; padding: 14px; background: var(--panel-2); border-radius: 12px; margin-bottom: 12px; }
+  .msg { padding: 10px 14px; border-radius: 12px; margin-bottom: 10px; max-width: 85%; white-space: pre-wrap; }
+  .msg.user { background: var(--primary); color: #fff; margin-left: auto; }
+  .msg.assistant { background: var(--panel); border: 1px solid var(--border); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .chip { font-size: 12px; padding: 6px 10px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--border); cursor: pointer; }
+  .chip:hover { border-color: var(--primary); color: var(--primary); }
+  .chat-input-row { display: flex; gap: 8px; }
+  .chat-input-row textarea { resize: none; height: 60px; }
+
+  /* Diagrams (SVG) */
+  .svg-diagram {
+    background: var(--panel-2); border-radius: 12px; padding: 16px;
+    margin: 14px 0; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .econ-svg { max-width: 100%; height: auto; color: var(--text); }
+  .svg-caption { font-size: 12.5px; color: var(--muted); text-align: center; }
+
+  ul.tight { margin: 6px 0 12px; padding-left: 22px; }
+  ul.tight li { margin-bottom: 4px; }
+  .stat {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .stat-num { font-size: 26px; font-weight: 700; color: var(--primary); }
+  .stat-lbl { font-size: 12px; color: var(--muted); }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filters select, .filters input { width: auto; min-width: 160px; }
+  .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 14px; }
+  .pill {
+    padding: 6px 12px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 13px; cursor: pointer; user-select: none;
+  }
+  .pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  details { background: var(--panel-2); border-radius: 10px; padding: 10px 14px; margin: 8px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  details[open] summary { margin-bottom: 8px; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 22px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+</style>
+</head>
+<body class="">
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">IE</div>
+      <div>
+        <div class="brand-title">IB Econ Hub</div>
+        <div class="brand-sub">Study smarter</div>
+      </div>
+    </div>
+
+    <div class="toggles">
+      <div class="toggle-row">
+        <span>Level <span id="level-pill" class="level-pill">SL</span></span>
+        <div id="level-switch" class="switch" title="Toggle SL/HL"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Dark mode</span>
+        <div id="dark-switch" class="switch" title="Toggle dark mode"></div>
+      </div>
+    </div>
+
+    <ul class="nav" id="nav">
+      <li><div class="nav-item active" data-page="dashboard"><span class="nav-icon">◉</span> Dashboard</div></li>
+      <li>
+        <div class="nav-item" data-page="notes"><span class="nav-icon">≡</span> Study Notes</div>
+        <div class="nav-sub" id="notes-sub">
+          <div class="nav-item" data-page="notes" data-unit="1">Unit 1 — Intro</div>
+          <div class="nav-item" data-page="notes" data-unit="2">Unit 2 — Micro</div>
+          <div class="nav-item" data-page="notes" data-unit="3">Unit 3 — Macro</div>
+          <div class="nav-item" data-page="notes" data-unit="4">Unit 4 — International</div>
+          <div class="nav-item" data-page="notes" data-unit="5">Unit 5 — Development</div>
+        </div>
+      </li>
+      <li><div class="nav-item" data-page="definitions"><span class="nav-icon">▤</span> Definitions</div></li>
+      <li><div class="nav-item" data-page="practice"><span class="nav-icon">✎</span> Practice</div></li>
+      <li><div class="nav-item" data-page="calculator"><span class="nav-icon">∑</span> Calculator</div></li>
+      <li><div class="nav-item" data-page="exams"><span class="nav-icon">⎚</span> Exam Papers</div></li>
+      <li><div class="nav-item" data-page="tutor"><span class="nav-icon">✦</span> AI Tutor</div></li>
+    </ul>
+  </aside>
+
+  <!-- Main -->
+  <main class="main" id="main"></main>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const UNITS = {
+  1: "Intro to Economics",
+  2: "Microeconomics",
+  3: "Macroeconomics",
+  4: "International Economics",
+  5: "Development Economics"
+};
+
+// --- DEFINITIONS ---
+const DEFINITIONS = [
+  // Unit 1
+  {term:"Scarcity", def:"The fundamental economic problem: unlimited wants but limited resources.", eg:"Oil reserves are finite while global demand keeps rising.", unit:1, level:"SL"},
+  {term:"Opportunity cost", def:"The value of the next-best alternative forgone when making a choice.", eg:"Choosing university means forgoing the salary from full-time work.", unit:1, level:"SL"},
+  {term:"Production possibilities curve (PPC)", def:"A model showing the maximum combinations of two goods that can be produced with a given set of resources.", eg:"Points inside the PPC indicate unemployment of resources.", unit:1, level:"SL"},
+  {term:"Positive economics", def:"Statements based on facts and evidence that can be tested.", eg:"\"An increase in tax raises government revenue.\"", unit:1, level:"SL"},
+  {term:"Normative economics", def:"Statements based on value judgments about what should be.", eg:"\"The government should reduce inequality.\"", unit:1, level:"SL"},
+  {term:"Free market economy", def:"An economy where resources are allocated by the price mechanism without government intervention.", eg:"Hong Kong is often cited as close to a free market.", unit:1, level:"SL"},
+  {term:"Command economy", def:"An economy where resources are allocated by central planning.", eg:"The former Soviet Union used central planning.", unit:1, level:"SL"},
+  {term:"Mixed economy", def:"An economy combining market and government allocation.", eg:"Most modern economies (UK, France) are mixed.", unit:1, level:"SL"},
+  {term:"Factors of production", def:"Resources used to produce goods and services: land, labour, capital, entrepreneurship.", eg:"A factory uses land, workers, machinery, and management.", unit:1, level:"SL"},
+  {term:"Ceteris paribus", def:"Latin for \"all other things being equal\" — used to isolate variables.", eg:"As price falls, quantity demanded rises, ceteris paribus.", unit:1, level:"SL"},
+
+  // Unit 2 — Micro SL
+  {term:"Demand", def:"The quantity of a good consumers are willing and able to buy at each price over a period of time.", eg:"At $5 a coffee, 100 cups are demanded daily.", unit:2, level:"SL"},
+  {term:"Supply", def:"The quantity of a good producers are willing and able to sell at each price over a period of time.", eg:"At $5 a coffee, 100 cups are supplied daily.", unit:2, level:"SL"},
+  {term:"Equilibrium", def:"The price and quantity at which quantity demanded equals quantity supplied.", eg:"At $4, Qd = Qs = 80 units — the market clears.", unit:2, level:"SL"},
+  {term:"Consumer surplus", def:"The difference between what consumers are willing to pay and what they actually pay.", eg:"Willing to pay $10, paid $7 → $3 consumer surplus.", unit:2, level:"SL"},
+  {term:"Producer surplus", def:"The difference between the price producers receive and the minimum they were willing to accept.", eg:"Sold at $7, willing to accept $4 → $3 producer surplus.", unit:2, level:"SL"},
+  {term:"Allocative efficiency", def:"Achieved when resources are allocated to produce goods most desired by society — MSB = MSC.", eg:"Free competitive markets allocate resources allocatively efficiently absent failures.", unit:2, level:"SL"},
+  {term:"Price elasticity of demand (PED)", def:"The responsiveness of quantity demanded to a change in price: %ΔQd / %ΔP.", eg:"PED of −2 means a 10% price rise reduces demand by 20%.", unit:2, level:"SL"},
+  {term:"Price elasticity of supply (PES)", def:"The responsiveness of quantity supplied to a change in price: %ΔQs / %ΔP.", eg:"PES of 0.5: a 10% price rise increases supply by 5%.", unit:2, level:"SL"},
+  {term:"Income elasticity of demand (YED)", def:"%ΔQd / %ΔY. Distinguishes normal (+) from inferior (−) goods.", eg:"YED of 1.5 → a luxury good (income elastic).", unit:2, level:"SL"},
+  {term:"Cross elasticity of demand (XED)", def:"%ΔQd of A / %ΔP of B. Positive = substitutes; negative = complements.", eg:"Tea & coffee XED > 0 (substitutes).", unit:2, level:"SL"},
+  {term:"Market failure", def:"When the free market fails to allocate resources efficiently.", eg:"Pollution from factories not priced into output.", unit:2, level:"SL"},
+  {term:"Negative externality of production", def:"A cost imposed on third parties from production activity not reflected in price.", eg:"Air pollution from steel production.", unit:2, level:"SL"},
+  {term:"Positive externality of consumption", def:"A benefit to third parties from consumption not reflected in price.", eg:"Vaccinations reduce disease spread for everyone.", unit:2, level:"SL"},
+  {term:"Public good", def:"A good that is non-rivalrous and non-excludable.", eg:"National defence, street lighting.", unit:2, level:"SL"},
+  {term:"Merit good", def:"A good underprovided by the market and under-consumed because individuals undervalue benefits.", eg:"Education, healthcare.", unit:2, level:"SL"},
+  {term:"Demerit good", def:"A good overprovided by the market and over-consumed because individuals undervalue costs.", eg:"Cigarettes, alcohol.", unit:2, level:"SL"},
+  {term:"Price ceiling", def:"A maximum price set by the government below market equilibrium.", eg:"Rent controls in New York City.", unit:2, level:"SL"},
+  {term:"Price floor", def:"A minimum price set by the government above market equilibrium.", eg:"Minimum wage; agricultural price supports.", unit:2, level:"SL"},
+  {term:"Indirect tax", def:"A tax on expenditure (e.g., VAT, excise) collected by sellers and passed on in the price.", eg:"VAT on consumer goods.", unit:2, level:"SL"},
+  {term:"Subsidy", def:"A payment from the government to producers to lower costs and increase supply.", eg:"Renewable energy subsidies.", unit:2, level:"SL"},
+  {term:"Asymmetric information", def:"When one party in a transaction has more or better information than the other.", eg:"Used-car sellers know more about defects than buyers.", unit:2, level:"SL"},
+
+  // Unit 2 — Micro HL
+  {term:"Marginal revenue (MR)", def:"The additional revenue from selling one more unit.", eg:"MR=0 marks the profit-maximising point under MC=MR for a monopolist.", unit:2, level:"HL"},
+  {term:"Marginal cost (MC)", def:"The additional cost of producing one more unit.", eg:"Firms produce where MR=MC to maximise profit.", unit:2, level:"HL"},
+  {term:"Perfect competition", def:"A market with many small firms, identical products, free entry/exit, perfect information; firms are price takers.", eg:"Wheat farming approximates perfect competition.", unit:2, level:"HL"},
+  {term:"Monopoly", def:"A market with a single firm controlling supply, with high barriers to entry.", eg:"Many local utilities are natural monopolies.", unit:2, level:"HL"},
+  {term:"Monopolistic competition", def:"Many firms selling differentiated products with low barriers to entry.", eg:"Restaurants, hairdressers.", unit:2, level:"HL"},
+  {term:"Oligopoly", def:"A market dominated by a few large interdependent firms.", eg:"Global smartphone market.", unit:2, level:"HL"},
+  {term:"Game theory", def:"Studies strategic interactions where each player's outcome depends on others' choices.", eg:"Prisoner's dilemma — both confess due to lack of trust.", unit:2, level:"HL"},
+  {term:"Price discrimination", def:"Charging different prices to different consumers for the same good when not justified by cost.", eg:"Student/senior cinema discounts.", unit:2, level:"HL"},
+  {term:"Economies of scale", def:"Falling long-run average costs as output rises.", eg:"Larger firms negotiate cheaper bulk inputs.", unit:2, level:"HL"},
+
+  // Unit 3 — Macro SL
+  {term:"GDP", def:"The total monetary value of all final goods and services produced within a country in a year.", eg:"US GDP 2022 ≈ $25 trillion.", unit:3, level:"SL"},
+  {term:"GNI", def:"GDP plus net income earned by domestic residents abroad.", eg:"Ireland's GNI < GDP due to large MNC profits flowing out.", unit:3, level:"SL"},
+  {term:"Aggregate demand (AD)", def:"Total spending on an economy's output: AD = C + I + G + (X − M).", eg:"AD shifts right when consumer confidence rises.", unit:3, level:"SL"},
+  {term:"Aggregate supply (AS)", def:"Total output firms in an economy plan to supply at each price level.", eg:"SRAS shifts left when oil prices rise.", unit:3, level:"SL"},
+  {term:"Business cycle", def:"Short-term fluctuations of real GDP around long-term trend: boom, recession, trough, recovery.", eg:"2008–09 global recession.", unit:3, level:"SL"},
+  {term:"Cyclical unemployment", def:"Unemployment caused by a fall in AD during a downturn.", eg:"Mass layoffs during 2009 recession.", unit:3, level:"SL"},
+  {term:"Structural unemployment", def:"Unemployment caused by a mismatch between worker skills and available jobs.", eg:"Coal miners losing jobs as economies decarbonise.", unit:3, level:"SL"},
+  {term:"Frictional unemployment", def:"Short-term unemployment as people move between jobs.", eg:"A graduate searching for their first role.", unit:3, level:"SL"},
+  {term:"Demand-pull inflation", def:"A sustained rise in price level caused by rising AD.", eg:"Booming economy bidding up prices.", unit:3, level:"SL"},
+  {term:"Cost-push inflation", def:"A sustained rise in price level caused by rising costs of production.", eg:"2022 inflation spike from energy & food costs.", unit:3, level:"SL"},
+  {term:"CPI", def:"Consumer price index — measures inflation by tracking a weighted basket of household goods.", eg:"CPI rose 6% YoY in 2022 in many economies.", unit:3, level:"SL"},
+  {term:"Fiscal policy", def:"Government use of taxation and spending to influence AD.", eg:"Tax cuts to stimulate growth.", unit:3, level:"SL"},
+  {term:"Monetary policy", def:"Central bank use of interest rates and money supply to influence AD.", eg:"Fed raising rates to fight inflation.", unit:3, level:"SL"},
+  {term:"Supply-side policies", def:"Policies that increase potential output — both market-based (deregulation) and interventionist (education).", eg:"Investing in worker training.", unit:3, level:"SL"},
+
+  // Unit 3 — Macro HL
+  {term:"Marginal propensity to consume (MPC)", def:"The fraction of additional income that is consumed.", eg:"MPC of 0.8 means 80% of new income is spent.", unit:3, level:"HL"},
+  {term:"Keynesian multiplier (k)", def:"k = 1 / (1 − MPC) = 1 / (MPS + MPT + MPM). Magnifies an injection's effect on GDP.", eg:"MPC=0.8 → k=5: $1bn injection → $5bn GDP increase.", unit:3, level:"HL"},
+  {term:"Accelerator effect", def:"Investment is driven by the rate of change of GDP — growth begets more investment.", eg:"Rapid GDP growth triggers a wave of capacity expansion.", unit:3, level:"HL"},
+
+  // Unit 4 — International SL
+  {term:"Comparative advantage", def:"A country has comparative advantage in a good if it can produce it at a lower opportunity cost.", eg:"Even if Country A is more productive in everything, it should specialise where its OC is lowest.", unit:4, level:"SL"},
+  {term:"Tariff", def:"A tax on imports.", eg:"US 25% tariff on certain Chinese imports.", unit:4, level:"SL"},
+  {term:"Quota", def:"A quantitative limit on imports.", eg:"Limiting steel imports to 2 million tonnes/year.", unit:4, level:"SL"},
+  {term:"Export subsidy", def:"A government payment to exporters lowering their costs.", eg:"EU CAP support for farm exports.", unit:4, level:"SL"},
+  {term:"Exchange rate", def:"The price of one currency in terms of another.", eg:"€1 = $1.10.", unit:4, level:"SL"},
+  {term:"Balance of payments", def:"A record of all economic transactions between residents and the rest of the world.", eg:"Current account + capital + financial accounts must balance.", unit:4, level:"SL"},
+  {term:"Current account deficit", def:"When imports of goods/services + outflows exceed exports + inflows.", eg:"US runs persistent CA deficit financed by capital inflows.", unit:4, level:"SL"},
+  {term:"Marshall–Lerner condition", def:"A devaluation improves the current account if PEDx + PEDm > 1.", eg:"If demand for both exports and imports is sufficiently elastic, devaluation works.", unit:4, level:"SL"},
+  {term:"J-curve", def:"After a devaluation, the current account worsens before improving as elasticities take time to adjust.", eg:"Short-run: pricier imports; long-run: export surge.", unit:4, level:"SL"},
+
+  // Unit 4 — International HL
+  {term:"Terms of trade", def:"The ratio of an index of export prices to an index of import prices: (Px/Pm) × 100.", eg:"Falling commodity prices worsen developing-country ToT.", unit:4, level:"HL"},
+  {term:"Trade integration", def:"The degree to which economies remove barriers and integrate markets.", eg:"EU single market; ASEAN trade liberalisation.", unit:4, level:"HL"},
+
+  // Unit 5 — Development
+  {term:"Economic growth", def:"An increase in real GDP over time.", eg:"China averaged ~9% annual growth 1980–2010.", unit:5, level:"SL"},
+  {term:"Economic development", def:"A multidimensional improvement in living standards including income, health, education, freedom.", eg:"Costa Rica has high HDI relative to GDP.", unit:5, level:"SL"},
+  {term:"HDI", def:"Human Development Index — composite of life expectancy, education (mean & expected years), and GNI per capita.", eg:"Norway typically ranks at the top.", unit:5, level:"SL"},
+  {term:"Absolute poverty", def:"Income below the level needed to maintain a basic standard of living (e.g., $2.15/day).", eg:"~700 million people in 2022 lived below $2.15/day.", unit:5, level:"SL"},
+  {term:"Relative poverty", def:"Income below a defined fraction of median income (often 50% or 60%).", eg:"UK relative poverty line is 60% of median income.", unit:5, level:"SL"},
+  {term:"Gini coefficient", def:"A measure of income inequality from 0 (perfect equality) to 1 (perfect inequality).", eg:"Scandinavian countries ~0.25; South Africa ~0.63.", unit:5, level:"SL"},
+  {term:"Lorenz curve", def:"A graph of cumulative income share against cumulative population share — shows inequality.", eg:"The further from the line of equality, the higher the Gini.", unit:5, level:"SL"},
+  {term:"Foreign direct investment (FDI)", def:"Investment by a foreign firm to acquire or build productive assets in a host economy.", eg:"Toyota building a factory in the UK.", unit:5, level:"SL"},
+  {term:"Microfinance", def:"Providing small loans and financial services to those without access to traditional banking.", eg:"Grameen Bank in Bangladesh.", unit:5, level:"SL"},
+  {term:"Sustainable Development Goals", def:"17 UN goals (2015–2030) covering poverty, education, equality, climate, and more.", eg:"SDG 1: No Poverty.", unit:5, level:"SL"},
+  {term:"Trade liberalisation", def:"Reducing trade barriers to promote international trade.", eg:"WTO rounds reducing tariffs globally.", unit:5, level:"SL"},
+  {term:"Aid", def:"Voluntary transfers of resources from one country to another, often concessional or grant-based.", eg:"Bilateral aid from Japan to Vietnam.", unit:5, level:"SL"},
+];
+
+// --- STUDY CONTENT ---
+const STUDY_CONTENT = {
+  1: `
+    <div class="note-section">
+      <h2>1.1 Scarcity, Choice, and Opportunity Cost</h2>
+      <div class="key-concept">
+        <div class="label">Key concept</div>
+        <p>Economics is the study of how societies allocate <strong>scarce resources</strong> to satisfy <strong>unlimited wants</strong>. Every choice has an <strong>opportunity cost</strong> — the next-best alternative forgone.</p>
+      </div>
+      <ul class="tight">
+        <li><strong>Factors of production:</strong> land, labour, capital, entrepreneurship.</li>
+        <li><strong>Three basic questions:</strong> What to produce? How to produce? For whom?</li>
+        <li><strong>Free vs economic goods:</strong> Free goods (e.g., air) have no opportunity cost; economic goods do.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>1.2 Production Possibilities Curve (PPC)</h2>
+      <p>The PPC shows the maximum combinations of two goods produceable with given resources/technology.</p>
+      <div class="svg-diagram">
+        <svg class="econ-svg" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Production Possibilities Curve">
+          <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="60" y1="280" x2="440" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="60,30 56,40 64,40" fill="currentColor"/>
+          <polygon points="450,280 440,276 440,284" fill="currentColor"/>
+          <path d="M 60 60 A 360 220 0 0 1 420 280" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+          <circle cx="195" cy="158" r="4.5" fill="var(--good)"/>
+          <text x="206" y="153" font-size="12" fill="var(--good)" font-weight="700">A · efficient</text>
+          <circle cx="160" cy="245" r="4.5" fill="var(--muted)"/>
+          <text x="170" y="252" font-size="12" fill="var(--muted)">C · inefficient</text>
+          <circle cx="380" cy="100" r="4.5" fill="var(--bad)"/>
+          <text x="290" y="85" font-size="12" fill="var(--bad)" font-weight="700">B · unattainable</text>
+          <text x="20" y="50" font-size="12" font-weight="700" fill="currentColor">Capital</text>
+          <text x="20" y="65" font-size="12" font-weight="700" fill="currentColor">goods</text>
+          <text x="345" y="305" font-size="12" font-weight="700" fill="currentColor">Consumer goods</text>
+          <text x="385" y="205" font-size="13" fill="var(--primary)" font-weight="800">PPC</text>
+        </svg>
+        <div class="svg-caption">On curve: efficient · inside: unemployed resources · outside: unattainable.</div>
+      </div>
+      <ul class="tight">
+        <li>Points <em>on</em> the curve: productively efficient.</li>
+        <li>Points <em>inside</em> the curve: unemployment / inefficiency.</li>
+        <li>Points <em>outside</em>: unattainable with current resources.</li>
+        <li>Outward shift = economic growth (more resources or better tech).</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>1.3 Economic Systems</h2>
+      <table>
+        <tr><th>System</th><th>Allocation</th><th>Example</th></tr>
+        <tr><td>Free market</td><td>Price mechanism</td><td>Hong Kong (close)</td></tr>
+        <tr><td>Command</td><td>Central planning</td><td>Cuba, North Korea</td></tr>
+        <tr><td>Mixed</td><td>Both</td><td>UK, Germany, US</td></tr>
+      </table>
+    </div>
+
+    <div class="note-section">
+      <h2>1.4 Positive vs Normative</h2>
+      <ul class="tight">
+        <li><strong>Positive:</strong> testable factual claims. <em>"Higher tariffs raise import prices."</em></li>
+        <li><strong>Normative:</strong> value judgments. <em>"The government should reduce inequality."</em></li>
+      </ul>
+    </div>
+  `,
+
+  2: `
+    <div class="note-section">
+      <h2>2.1 Demand and Supply</h2>
+      <div class="key-concept">
+        <div class="label">Law of demand</div>
+        <p>As price rises, quantity demanded falls (ceteris paribus). Reasons: income effect, substitution effect, diminishing marginal utility.</p>
+      </div>
+      <p><strong>Non-price determinants of demand:</strong> income, tastes, prices of related goods (substitutes/complements), expectations, population.</p>
+      <p><strong>Non-price determinants of supply:</strong> costs, technology, taxes/subsidies, prices of related goods, expectations, number of firms, weather (for primary commodities).</p>
+      <div class="svg-diagram">
+        <svg class="econ-svg" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Demand and supply equilibrium">
+          <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="60" y1="280" x2="440" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="60,30 56,40 64,40" fill="currentColor"/>
+          <polygon points="450,280 440,276 440,284" fill="currentColor"/>
+          <line x1="100" y1="70" x2="400" y2="270" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="406" y="272" font-size="13" fill="var(--primary)" font-weight="800">D</text>
+          <line x1="100" y1="270" x2="400" y2="70" stroke="var(--secondary)" stroke-width="2.5"/>
+          <text x="406" y="74" font-size="13" fill="var(--secondary)" font-weight="800">S</text>
+          <line x1="60" y1="170" x2="250" y2="170" stroke="currentColor" stroke-width="1" stroke-dasharray="4,3" opacity="0.45"/>
+          <line x1="250" y1="170" x2="250" y2="280" stroke="currentColor" stroke-width="1" stroke-dasharray="4,3" opacity="0.45"/>
+          <circle cx="250" cy="170" r="5" fill="currentColor"/>
+          <text x="258" y="162" font-size="12" font-weight="800" fill="currentColor">E</text>
+          <text x="38" y="174" font-size="12" fill="var(--muted)">P*</text>
+          <text x="244" y="298" font-size="12" fill="var(--muted)">Q*</text>
+          <text x="40" y="30" font-size="13" font-weight="800" fill="currentColor">P</text>
+          <text x="445" y="296" font-size="13" font-weight="800" fill="currentColor">Q</text>
+        </svg>
+        <div class="svg-caption">Market clears at price P* and quantity Q* where Qd = Qs.</div>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>2.2 Equilibrium and Surplus</h2>
+      <ul class="tight">
+        <li><strong>Equilibrium:</strong> Qd = Qs at price P*.</li>
+        <li><strong>Consumer surplus:</strong> area between demand curve and price.</li>
+        <li><strong>Producer surplus:</strong> area between price and supply curve.</li>
+        <li><strong>Allocative efficiency</strong> (community surplus maximised) at competitive equilibrium.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.3 Elasticities</h2>
+      <table>
+        <tr><th>Type</th><th>Formula</th><th>Insight</th></tr>
+        <tr><td>PED</td><td>%ΔQd / %ΔP</td><td>Elastic (>1): cut price → revenue ↑</td></tr>
+        <tr><td>PES</td><td>%ΔQs / %ΔP</td><td>Higher PES → smoother adjustment</td></tr>
+        <tr><td>YED</td><td>%ΔQd / %ΔY</td><td>+: normal; − : inferior; >1 luxury</td></tr>
+        <tr><td>XED</td><td>%ΔQdA / %ΔPB</td><td>+ substitutes, − complements</td></tr>
+      </table>
+      <p><strong>PED determinants:</strong> substitutes available, % of income, necessity vs luxury, time horizon, addiction.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>2.4 Market Failure & Externalities</h2>
+      <div class="key-concept">
+        <div class="label">Definition</div>
+        <p>Market failure: free market produces an output where MSB ≠ MSC, leading to a <strong>welfare loss</strong>.</p>
+      </div>
+      <ul class="tight">
+        <li><strong>Negative externality of production:</strong> e.g. pollution → tax (Pigouvian) or regulation.</li>
+        <li><strong>Positive externality of consumption:</strong> e.g. vaccination → subsidy or provision.</li>
+        <li><strong>Public goods:</strong> non-rivalrous + non-excludable → free rider problem → government provision.</li>
+        <li><strong>Asymmetric information:</strong> adverse selection (lemons), moral hazard.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>2.5 Government Intervention</h2>
+      <ul class="tight">
+        <li><strong>Indirect taxes:</strong> shift S left → higher P, lower Q. Burden split by elasticities.</li>
+        <li><strong>Subsidies:</strong> shift S right → lower P, higher Q. Opportunity cost for taxpayers.</li>
+        <li><strong>Price ceiling</strong> below P*: shortage, queues, black markets (e.g., rent control).</li>
+        <li><strong>Price floor</strong> above P*: surplus (e.g., minimum wage, agricultural price supports).</li>
+      </ul>
+    </div>
+
+    <div class="hl-section hl-only">
+      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+      <h3>2.6 Theory of the Firm</h3>
+      <p><strong>Profit maximisation:</strong> MR = MC.</p>
+      <table>
+        <tr><th>Structure</th><th>Firms</th><th>Product</th><th>Barriers</th><th>Long-run profit</th></tr>
+        <tr><td>Perfect comp.</td><td>Many</td><td>Identical</td><td>None</td><td>Normal only</td></tr>
+        <tr><td>Monopolistic</td><td>Many</td><td>Differentiated</td><td>Low</td><td>Normal only</td></tr>
+        <tr><td>Oligopoly</td><td>Few</td><td>Either</td><td>High</td><td>Possibly abnormal</td></tr>
+        <tr><td>Monopoly</td><td>One</td><td>Unique</td><td>Very high</td><td>Abnormal</td></tr>
+      </table>
+      <p><strong>Game theory:</strong> non-collusive oligopolists may face the prisoner's dilemma — both undercut and end worse off.</p>
+      <p><strong>Price discrimination</strong> requires market power, ability to separate consumers, and prevent resale.</p>
+      <p><strong>Economies of scale:</strong> internal (purchasing, technical, managerial, financial, risk-bearing) vs external. Diseconomies follow when firms grow too large.</p>
+    </div>
+  `,
+
+  3: `
+    <div class="note-section">
+      <h2>3.1 Measuring Economic Activity</h2>
+      <div class="key-concept">
+        <div class="label">GDP — three approaches</div>
+        <p><strong>Output:</strong> sum of value added.<br>
+        <strong>Income:</strong> wages + rent + interest + profit.<br>
+        <strong>Expenditure:</strong> C + I + G + (X − M).<br>
+        All three approaches must yield the same total.</p>
+      </div>
+      <ul class="tight">
+        <li><strong>GNI</strong> = GDP + net property income from abroad.</li>
+        <li><strong>Real vs nominal GDP:</strong> Real GDP = (Nominal GDP / Price index) × 100.</li>
+        <li><strong>GDP per capita</strong> better captures living standards but misses inequality, environment, informal economy, leisure.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>3.2 AD / AS Model</h2>
+      <p><strong>AD = C + I + G + (X − M).</strong> Downward sloping due to wealth, interest rate, and net export effects.</p>
+      <p><strong>SRAS</strong> upward sloping; shifts from costs (wages, raw materials, indirect taxes, exchange rates).</p>
+      <p><strong>LRAS</strong> at full employment (potential GDP). Shifts from quantity/quality of factors, technology, productivity.</p>
+      <div class="svg-diagram">
+        <svg class="econ-svg" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aggregate demand and aggregate supply">
+          <line x1="60" y1="40" x2="60" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="60" y1="280" x2="440" y2="280" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="60,30 56,40 64,40" fill="currentColor"/>
+          <polygon points="450,280 440,276 440,284" fill="currentColor"/>
+          <line x1="320" y1="60" x2="320" y2="280" stroke="var(--hl)" stroke-width="2.5"/>
+          <text x="325" y="55" font-size="12" font-weight="800" fill="var(--hl)">LRAS</text>
+          <line x1="120" y1="260" x2="400" y2="80" stroke="var(--secondary)" stroke-width="2.5"/>
+          <text x="402" y="78" font-size="12" font-weight="800" fill="var(--secondary)">SRAS</text>
+          <line x1="120" y1="80" x2="400" y2="260" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="402" y="266" font-size="12" font-weight="800" fill="var(--primary)">AD</text>
+          <circle cx="260" cy="170" r="5" fill="currentColor"/>
+          <text x="266" y="162" font-size="12" font-weight="800" fill="currentColor">E</text>
+          <text x="312" y="298" font-size="12" fill="var(--muted)">Yfe</text>
+          <text x="40" y="30" font-size="13" font-weight="800" fill="currentColor">PL</text>
+          <text x="445" y="296" font-size="13" font-weight="800" fill="currentColor">Y</text>
+        </svg>
+        <div class="svg-caption">Short-run equilibrium at intersection of AD and SRAS; long-run equilibrium on LRAS at full-employment Yfe.</div>
+      </div>
+      <p><strong>Keynesian AS</strong> is horizontal at low Y, upward sloping near capacity, vertical at full employment — implying fiscal stimulus has big effects in slack economies, none at full employment.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>3.3 Macroeconomic Objectives</h2>
+      <ul class="tight">
+        <li><strong>Sustainable economic growth.</strong></li>
+        <li><strong>Low unemployment</strong> — types: cyclical, structural, frictional, seasonal.</li>
+        <li><strong>Low and stable inflation</strong> — typically ~2% target. Deflation risks (Japan).</li>
+        <li><strong>Equity</strong> in income distribution.</li>
+      </ul>
+      <p><strong>Costs of unemployment:</strong> personal (income, mental health), economic (lost output, lower tax revenue, higher transfers).</p>
+      <p><strong>Costs of inflation:</strong> menu costs, shoe-leather, redistribution from creditors to debtors, uncertainty, international competitiveness.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>3.4 Demand-Side Policies</h2>
+      <ul class="tight">
+        <li><strong>Fiscal policy:</strong> changing G or T to shift AD. Discretionary vs automatic stabilisers.</li>
+        <li><strong>Monetary policy:</strong> central bank interest rate, OMOs, QE, reserve requirements.</li>
+      </ul>
+      <p><strong>Strengths:</strong> targeted, flexible (monetary), direct (fiscal). <strong>Weaknesses:</strong> time lags, crowding out, political bias, liquidity trap.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>3.5 Supply-Side Policies</h2>
+      <ul class="tight">
+        <li><strong>Market-based:</strong> labour market reforms, deregulation, privatisation, lower taxes on labour/capital.</li>
+        <li><strong>Interventionist:</strong> investment in education, training, infrastructure, R&D.</li>
+      </ul>
+      <p>Long-term, expand LRAS — but expensive, slow, and may worsen inequality.</p>
+    </div>
+
+    <div class="hl-section hl-only">
+      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+      <h3>3.6 Multiplier and Accelerator</h3>
+      <p>Keynesian multiplier: <strong>k = 1 / (1 − MPC) = 1 / (MPS + MPT + MPM)</strong>.</p>
+      <p>An autonomous injection (G, I, X) raises GDP by k × the injection.</p>
+      <p><strong>Example:</strong> MPC = 0.6 → k = 1/0.4 = 2.5. A $200m injection raises GDP by $500m.</p>
+      <p><strong>Accelerator:</strong> investment depends on <em>change</em> in output, magnifying business cycles.</p>
+    </div>
+  `,
+
+  4: `
+    <div class="note-section">
+      <h2>4.1 Why Trade?</h2>
+      <div class="key-concept">
+        <div class="label">Comparative advantage (Ricardo)</div>
+        <p>Countries gain by specialising where their <strong>opportunity cost</strong> is lowest, even if absolutely less productive in everything.</p>
+      </div>
+      <p><strong>Other gains:</strong> economies of scale, variety, competition, technology transfer.</p>
+      <p><strong>Limitations:</strong> assumes constant costs, full employment, no transport costs, mobility of factors.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>4.2 Protectionism</h2>
+      <table>
+        <tr><th>Tool</th><th>Effect</th><th>Welfare</th></tr>
+        <tr><td>Tariff</td><td>Raises import price</td><td>Producer + gov gain; consumers + DWL loss</td></tr>
+        <tr><td>Quota</td><td>Limits import quantity</td><td>Similar to tariff but no gov revenue (unless auctioned)</td></tr>
+        <tr><td>Subsidy</td><td>Cuts producer cost</td><td>Producers gain at taxpayer cost</td></tr>
+        <tr><td>Admin barriers</td><td>Standards, paperwork</td><td>Reduce imports</td></tr>
+      </table>
+      <p><strong>Arguments for:</strong> infant industry, anti-dumping, strategic (defence), national security, balance of payments.<br>
+      <strong>Against:</strong> retaliation, inefficiency, higher prices, less choice, harms exporters via stronger currency.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>4.3 Exchange Rates</h2>
+      <ul class="tight">
+        <li><strong>Floating:</strong> determined by demand/supply for currency (trade flows, capital flows, speculation).</li>
+        <li><strong>Fixed:</strong> central bank uses reserves and interest rates to maintain peg.</li>
+        <li><strong>Managed float:</strong> mostly market-determined with occasional intervention.</li>
+      </ul>
+      <p><strong>Causes of appreciation:</strong> rising interest rates, strong exports, foreign investment, speculation.</p>
+      <p><strong>Effects of depreciation:</strong> exports cheaper (X ↑), imports dearer (M ↓), inflation pressure, debt servicing harder if debt is in foreign currency.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>4.4 Balance of Payments</h2>
+      <ul class="tight">
+        <li><strong>Current account:</strong> trade in goods + services + primary income + secondary income.</li>
+        <li><strong>Capital account:</strong> small — capital transfers, sale of non-produced assets.</li>
+        <li><strong>Financial account:</strong> FDI, portfolio investment, reserve assets.</li>
+      </ul>
+      <p>BoP must balance overall. A persistent CA deficit must be financed by financial inflows or running down reserves.</p>
+      <p><strong>Marshall–Lerner:</strong> a depreciation improves CA only if PEDx + PEDm > 1.<br>
+      <strong>J-curve:</strong> short-run CA worsens (volume slow to adjust); long-run improves.</p>
+    </div>
+
+    <div class="hl-section hl-only">
+      <div class="label" style="color: var(--hl); font-weight: 700;">HL EXTENSION</div>
+      <h3>4.5 Terms of Trade & Trade Integration</h3>
+      <p><strong>Terms of trade</strong> = (Index of export prices / Index of import prices) × 100.</p>
+      <p>Improvement: a unit of exports now buys more imports — but if caused by falling import demand from recession, it's a mixed signal.</p>
+      <p><strong>Trade integration:</strong> free trade area → customs union → common market → economic union → monetary union (e.g., EU evolution).</p>
+    </div>
+  `,
+
+  5: `
+    <div class="note-section">
+      <h2>5.1 Growth vs Development</h2>
+      <div class="key-concept">
+        <div class="label">Distinction</div>
+        <p><strong>Growth:</strong> rise in real GDP. <strong>Development:</strong> multidimensional improvement in well-being (income, health, education, freedoms, environment).</p>
+      </div>
+      <p><strong>HDI</strong> combines life expectancy, education (mean & expected years schooling), and GNI per capita.</p>
+      <p><strong>Other indicators:</strong> Gender Inequality Index, Inequality-adjusted HDI, Multidimensional Poverty Index.</p>
+    </div>
+
+    <div class="note-section">
+      <h2>5.2 Poverty and Inequality</h2>
+      <ul class="tight">
+        <li><strong>Absolute poverty:</strong> below an income threshold (World Bank: $2.15/day in 2017 PPP).</li>
+        <li><strong>Relative poverty:</strong> low income relative to society's median.</li>
+        <li><strong>Lorenz curve & Gini:</strong> graphical and numerical measures of inequality.</li>
+      </ul>
+      <div class="svg-diagram">
+        <svg class="econ-svg" viewBox="0 0 380 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lorenz curve and line of equality">
+          <line x1="70" y1="40" x2="70" y2="320" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="70" y1="320" x2="350" y2="320" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="70,30 66,40 74,40" fill="currentColor"/>
+          <polygon points="360,320 350,316 350,324" fill="currentColor"/>
+          <line x1="70" y1="320" x2="330" y2="60" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <path d="M 70 320 L 330 60 Q 280 320 70 320 Z" fill="var(--primary)" opacity="0.14"/>
+          <path d="M 70 320 Q 280 320 330 60" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+          <text x="32" y="64" font-size="11" fill="currentColor">100%</text>
+          <text x="58" y="334" font-size="11" fill="currentColor">0</text>
+          <text x="316" y="338" font-size="11" fill="currentColor">100%</text>
+          <text x="170" y="200" font-size="11" fill="var(--muted)">Line of equality</text>
+          <text x="195" y="295" font-size="11" font-weight="800" fill="var(--primary)">Lorenz curve</text>
+          <text x="14" y="180" font-size="11" font-weight="700" fill="currentColor" transform="rotate(-90 18 180)">% cumulative income</text>
+          <text x="120" y="354" font-size="11" font-weight="700" fill="currentColor">% cumulative population</text>
+        </svg>
+        <div class="svg-caption">The shaded gap between the line of equality and the Lorenz curve grows as inequality rises (higher Gini).</div>
+      </div>
+    </div>
+
+    <div class="note-section">
+      <h2>5.3 Barriers to Development</h2>
+      <ul class="tight">
+        <li>Poverty cycle: low income → low saving/investment → low productivity → low income.</li>
+        <li>Institutional: weak rule of law, corruption, poor property rights, gender inequality.</li>
+        <li>International: commodity price volatility, debt burden, brain drain, protectionism abroad.</li>
+        <li>Health & education deficits.</li>
+      </ul>
+    </div>
+
+    <div class="note-section">
+      <h2>5.4 Strategies for Development</h2>
+      <ul class="tight">
+        <li><strong>Trade strategies:</strong> diversification away from primary exports, regional integration.</li>
+        <li><strong>FDI:</strong> brings capital, jobs, technology — risks include profit repatriation, low linkage to local economy, environmental harm.</li>
+        <li><strong>Aid:</strong> bilateral, multilateral, NGO; tied vs untied. Concerns over dependency.</li>
+        <li><strong>Microfinance:</strong> small loans for the unbanked (Grameen Bank).</li>
+        <li><strong>Debt relief</strong> (HIPC initiative).</li>
+        <li><strong>SDGs:</strong> 17 global goals to 2030.</li>
+      </ul>
+    </div>
+  `
+};
+
+// --- SHORT QUESTIONS ---
+const SHORT_QUESTIONS = [
+  {q:"Define <em>opportunity cost</em>.", marks:2, unit:1, level:"SL", a:"The value of the next-best alternative forgone when a choice is made."},
+  {q:"Explain, using a diagram, how a positive consumption externality leads to market failure.", marks:4, unit:2, level:"SL", a:"At the free-market equilibrium, MPB = MPC, but MSB > MPB. The socially optimal output Q* (where MSB = MSC) exceeds Qm. Diagram shows MSB above MPB; underconsumption between Qm and Q* generates a welfare loss (triangle between MSB and MSC). A subsidy or government provision can correct it."},
+  {q:"Distinguish between a price ceiling and a price floor.", marks:4, unit:2, level:"SL", a:"A price ceiling is a maximum legal price set <em>below</em> equilibrium, causing shortages (Qd > Qs); e.g. rent control. A price floor is a minimum legal price set <em>above</em> equilibrium, causing surpluses (Qs > Qd); e.g. minimum wage. Both create disequilibrium and welfare loss."},
+  {q:"Explain how an indirect tax can correct for a negative production externality.", marks:4, unit:2, level:"SL", a:"A Pigouvian tax equal to the marginal external cost shifts the supply curve from MPC to MSC, raising market price and lowering output to the socially optimal Q* where MSB = MSC, internalising the externality and eliminating the welfare loss."},
+  {q:"Calculate PED if price rises from $10 to $12 and quantity demanded falls from 100 to 80. Comment on the value.", marks:3, unit:2, level:"SL", a:"%ΔQ = (80−100)/100 = −20%. %ΔP = (12−10)/10 = +20%. PED = −20/20 = −1 (unitary elastic). Total revenue unchanged with price changes."},
+  {q:"Explain two reasons why demand for cigarettes tends to be price inelastic.", marks:4, unit:2, level:"SL", a:"(1) Addiction reduces consumer responsiveness to price changes. (2) Few close substitutes. (3) Often a small share of income. Consequently a tax raises revenue effectively but reduces consumption only modestly."},
+  {q:"Define <em>aggregate demand</em>.", marks:2, unit:3, level:"SL", a:"Total spending on a country's output at each price level over a period: AD = C + I + G + (X − M)."},
+  {q:"Explain two limitations of using GDP per capita as a measure of living standards.", marks:4, unit:3, level:"SL", a:"(1) Ignores income distribution — high mean can mask poverty. (2) Excludes informal/non-market activity. (3) Does not value leisure, health, environment. (4) Does not capture quality of public services or political freedom."},
+  {q:"Using an AD/AS diagram, explain how an increase in business confidence affects equilibrium output and price level.", marks:4, unit:3, level:"SL", a:"Higher confidence raises planned investment, shifting AD right. In an upward-sloping AS region, both real output (Y) and the price level rise; unemployment typically falls. Magnitude depends on slope of AS and the multiplier."},
+  {q:"Explain the difference between cyclical and structural unemployment.", marks:4, unit:3, level:"SL", a:"Cyclical (demand-deficient) unemployment arises from a fall in AD during a recession; demand-side policies (fiscal/monetary expansion) can address it. Structural unemployment is caused by mismatch between worker skills/location and available jobs and requires supply-side policies — retraining, mobility support."},
+  {q:"Distinguish between fiscal and monetary policy.", marks:4, unit:3, level:"SL", a:"Fiscal: government changes spending or taxation to influence AD; controlled by government/treasury. Monetary: central bank changes interest rates or money supply; usually independent. Fiscal can be more targeted; monetary is faster but blunt."},
+  {q:"Explain the law of comparative advantage.", marks:4, unit:4, level:"SL", a:"A country has comparative advantage where it can produce a good at a lower opportunity cost. Specialising according to comparative advantage and trading expands the global production possibility frontier, allowing both countries to consume beyond their PPC. Assumes constant costs, factor mobility, and no major trade barriers."},
+  {q:"Explain, using a diagram, the welfare effects of a tariff on imported steel.", marks:6, unit:4, level:"SL", a:"At the world price Pw, domestic producers supply Q1, consumers demand Q2; imports = Q2 − Q1. A tariff raises price to Pw + t; domestic supply rises to Q3, demand falls to Q4. Producer surplus rises (a), government gains tariff revenue (c), consumer surplus falls (a + b + c + d). Net welfare loss = b + d (production and consumption distortions)."},
+  {q:"Explain two reasons why a country might pursue protectionist policies.", marks:4, unit:4, level:"SL", a:"(1) Infant industry argument — protect new industries until they reach economies of scale. (2) Anti-dumping — counter foreign firms selling below cost. (3) Strategic/national security — keep critical industries domestic. (4) Diversification away from over-reliance on imports."},
+  {q:"Define the <em>terms of trade</em>.", marks:2, unit:4, level:"HL", a:"The ratio of an index of export prices to an index of import prices, multiplied by 100: TOT = (Px/Pm) × 100. An increase means a unit of exports buys more imports."},
+  {q:"Distinguish between economic growth and economic development.", marks:4, unit:5, level:"SL", a:"Growth is a rise in real GDP — a quantitative measure. Development is a multidimensional improvement in well-being including income, health, education, gender equality, environment, freedoms — typically measured by HDI or MPI. Growth can occur without development (e.g., resource booms with poor distribution)."},
+  {q:"Explain how the Gini coefficient measures inequality.", marks:3, unit:5, level:"SL", a:"The Gini is the ratio of the area between the Lorenz curve and the line of equality to the total area beneath the line of equality. It runs from 0 (perfect equality) to 1 (perfect inequality). Higher values indicate greater income inequality."},
+  {q:"Evaluate the use of microfinance as a development strategy.", marks:8, unit:5, level:"SL", a:"<strong>Strengths:</strong> reaches the unbanked, empowers women, supports microenterprise, lower default rates than expected (Grameen). <strong>Weaknesses:</strong> very high interest rates, evidence on poverty reduction is mixed, can lead to indebtedness, doesn't address structural barriers (infrastructure, education). <strong>Conclusion:</strong> useful complement to broader strategies (education, infrastructure, governance reform), not a silver bullet — its effectiveness is context-dependent."},
+  {q:"Discuss the effect of foreign direct investment on a developing economy.", marks:8, unit:5, level:"SL", a:"<strong>Benefits:</strong> capital injection, technology transfer, job creation, tax revenue, links to global value chains. <strong>Drawbacks:</strong> profit repatriation, environmental harm, weak local linkages (export enclaves), cultural/political tensions. <strong>Evaluation:</strong> depends on host institutions — strong governance, education, and bargaining capacity (e.g., local content rules) capture more benefits. Provide example (e.g., automotive FDI in Vietnam vs extractive FDI in some African economies)."},
+  {q:"Define <em>monopoly</em>.", marks:2, unit:2, level:"HL", a:"A market structure in which a single firm controls supply and faces high barriers to entry, allowing it to set price (price maker)."},
+  {q:"Explain how a monopolist sets price and output to maximise profit.", marks:4, unit:2, level:"HL", a:"The monopolist faces a downward-sloping demand curve and chooses Q where MR = MC. Price is then read off the demand curve at that quantity (P > MR > MC). Profit is (P − ATC) × Q. The monopolist produces less, charges more than under perfect competition, generating allocative inefficiency."},
+  {q:"Explain the Keynesian multiplier.", marks:4, unit:3, level:"HL", a:"An autonomous injection (G, I, X) increases GDP by k × the injection, where k = 1/(1−MPC) = 1/(MPS+MPT+MPM). Successive rounds of consumption propagate the initial spending until leakages exhaust it. Larger MPC → larger k. Example: MPC=0.75 → k=4."},
+  {q:"Calculate the inflation rate if the CPI rises from 110 to 116.6.", marks:2, unit:3, level:"SL", a:"Inflation = (116.6 − 110) / 110 × 100 = 6%."},
+  {q:"Explain two ways in which a depreciation of the currency might improve the current account.", marks:4, unit:4, level:"SL", a:"(1) Exports become cheaper in foreign currency, raising export demand. (2) Imports become more expensive, reducing import demand. Provided the Marshall–Lerner condition holds (PEDx + PEDm > 1), the current account improves; the J-curve suggests the improvement comes only after a lag."},
+  {q:"Explain two reasons why economic growth may not lead to development.", marks:4, unit:5, level:"SL", a:"(1) Inequality — gains may concentrate at the top, leaving median welfare unchanged. (2) Environmental degradation reduces long-term well-being. (3) Growth in extractive sectors may bypass health/education improvements. (4) Without good institutions, gains may not translate into public services."},
+];
+
+// --- CALC QUESTIONS ---
+const CALC_QUESTIONS = [
+  {title:"PED — basic", unit:2, problem:"Price rises from $20 to $25; quantity demanded falls from 200 to 160. Calculate PED and classify.",
+    steps:["%ΔQ = (160 − 200) / 200 × 100 = −20%", "%ΔP = (25 − 20) / 20 × 100 = +25%", "PED = −20% / 25% = −0.8", "|PED| < 1 → demand is price <strong>inelastic</strong>. A 1% rise in price reduces Qd by 0.8%."]},
+  {title:"PED — revenue effect", unit:2, problem:"PED for movie tickets is −1.5. The cinema raises price by 10%. What happens to total revenue?",
+    steps:["%ΔQd = PED × %ΔP = −1.5 × 10% = −15%", "Demand is elastic (|PED| > 1). When price rises and demand is elastic, TR <strong>falls</strong>.", "Estimated %ΔTR ≈ %ΔP + %ΔQ = 10% + (−15%) = −5%"]},
+  {title:"PES", unit:2, problem:"Price rises from $50 to $55; quantity supplied rises from 1000 to 1100. Calculate PES.",
+    steps:["%ΔQs = (1100 − 1000) / 1000 × 100 = +10%", "%ΔP = (55 − 50) / 50 × 100 = +10%", "PES = 10% / 10% = 1 (unit elastic)"]},
+  {title:"YED", unit:2, problem:"As income rises 8%, demand for restaurant meals rises 12%. Calculate YED and classify the good.",
+    steps:["YED = %ΔQd / %ΔY = 12% / 8% = 1.5", "YED > 1 → income elastic luxury / superior good."]},
+  {title:"XED", unit:2, problem:"The price of butter rises 20%; quantity demanded of margarine rises 30%. Calculate XED and identify relationship.",
+    steps:["XED = %ΔQdMargarine / %ΔPButter = 30% / 20% = +1.5", "Positive XED → goods are <strong>substitutes</strong>."]},
+  {title:"GDP — expenditure approach", unit:3, problem:"Given C=$600bn, I=$200bn, G=$300bn, X=$150bn, M=$200bn. Calculate GDP.",
+    steps:["GDP = C + I + G + (X − M)", "GDP = 600 + 200 + 300 + (150 − 200)", "GDP = 1100 + (−50) = $1050bn"]},
+  {title:"Unemployment rate", unit:3, problem:"Labour force is 50 million; 4 million are unemployed. Calculate the unemployment rate.",
+    steps:["Unemployment rate = (Unemployed / Labour force) × 100", "= (4 / 50) × 100 = 8%"]},
+  {title:"CPI inflation", unit:3, problem:"CPI 2022 = 120, CPI 2023 = 126. Calculate the inflation rate.",
+    steps:["Inflation = (CPI₂ − CPI₁) / CPI₁ × 100", "= (126 − 120) / 120 × 100 = 5%"]},
+  {title:"Real GDP", unit:3, problem:"Nominal GDP = $2200bn; price index = 110 (base = 100). Calculate real GDP.",
+    steps:["Real GDP = (Nominal GDP / Price index) × 100", "= (2200 / 110) × 100 = $2000bn"]},
+  {title:"Multiplier (HL)", unit:3, problem:"MPC = 0.75. Find k. The government raises spending by $80bn. By how much does GDP rise?",
+    steps:["k = 1 / (1 − MPC) = 1 / (1 − 0.75) = 1 / 0.25 = 4", "ΔGDP = k × ΔG = 4 × $80bn = $320bn"]},
+  {title:"Multiplier with leakages (HL)", unit:3, problem:"MPS = 0.10, MPT = 0.20, MPM = 0.10. Calculate k.",
+    steps:["k = 1 / (MPS + MPT + MPM) = 1 / (0.10 + 0.20 + 0.10) = 1 / 0.40 = 2.5"]},
+  {title:"Terms of trade (HL)", unit:4, problem:"Index of export prices rises 10%; index of import prices rises 4%. Calculate change in ToT.",
+    steps:["ToT = (Px / Pm) × 100; with both as indices: ", "New ToT index = (110 / 104) × 100 ≈ 105.77", "Change ≈ +5.77% — improvement in terms of trade."]},
+  {title:"Tax incidence", unit:2, problem:"A specific tax of $4 is imposed; the equilibrium price rises from $20 to $23. Find the consumer and producer share of the tax.",
+    steps:["Consumer pays $23 − $20 = $3 (75%)", "Producer absorbs $4 − $3 = $1 (25%)", "Higher PES relative to PED → consumers bear more of the tax."]},
+  {title:"Subsidy total cost", unit:2, problem:"Government subsidises producers $5 per unit. After the subsidy, output rises to 8 million units. Calculate the total cost of the subsidy to the government.",
+    steps:["Total cost = subsidy per unit × new quantity", "= $5 × 8,000,000 = $40,000,000"]},
+  {title:"Exchange rate", unit:4, problem:"€1 = $1.20. A US firm needs to pay €5,000. How many dollars must it convert?",
+    steps:["Dollars = Euros × exchange rate (USD per EUR)", "= 5,000 × 1.20 = $6,000"]},
+];
+
+// --- MCQ ---
+const MCQS = [
+  {q:"The basic economic problem arises from:", opts:["Limited wants and unlimited resources","Unlimited wants and unlimited resources","Unlimited wants and scarce resources","Government failure"], correct:2, explain:"Scarcity arises because human wants are unlimited but the resources available are scarce.", unit:1, level:"SL"},
+  {q:"Movement <em>along</em> a demand curve is caused by a change in:", opts:["Income","Price of the good","Tastes","Price of substitutes"], correct:1, explain:"Only a change in the good's own price causes movement along its demand curve. The others shift the curve.", unit:2, level:"SL"},
+  {q:"If PED for a good is −0.4, demand is:", opts:["Perfectly elastic","Elastic","Inelastic","Unit elastic"], correct:2, explain:"|PED| < 1 → inelastic.", unit:2, level:"SL"},
+  {q:"A negative externality of production results in:", opts:["MSC > MPC","MSC < MPC","MSB > MPB","MSB < MPB"], correct:0, explain:"Production imposes external costs, so social marginal cost exceeds private marginal cost.", unit:2, level:"SL"},
+  {q:"A characteristic of a public good is that it is:", opts:["Rival and excludable","Rival and non-excludable","Non-rival and excludable","Non-rival and non-excludable"], correct:3, explain:"Public goods have both characteristics; this generates the free-rider problem.", unit:2, level:"SL"},
+  {q:"A price ceiling set above the equilibrium price will:", opts:["Cause a shortage","Cause a surplus","Have no effect","Lead to higher prices"], correct:2, explain:"A non-binding ceiling above equilibrium has no effect because the equilibrium price is already legal.", unit:2, level:"SL"},
+  {q:"If YED for a good is −0.5, the good is:", opts:["A luxury","A normal necessity","An inferior good","A substitute"], correct:2, explain:"Negative YED → inferior good (demand falls as income rises).", unit:2, level:"SL"},
+  {q:"If XED between two goods is +1.4, they are:", opts:["Complements","Substitutes","Unrelated","Inferior goods"], correct:1, explain:"Positive XED → substitutes; the higher the value, the closer the substitute relationship.", unit:2, level:"SL"},
+  {q:"GDP is best defined as the:", opts:["Total wealth of a country","Total income of all residents","Market value of final goods produced within a country in a year","Total exports of a country"], correct:2, explain:"GDP measures the value of final output produced inside a country's borders in a given period.", unit:3, level:"SL"},
+  {q:"Aggregate demand consists of:", opts:["C + S + G + (X − M)","C + I + G + (X − M)","C + I + G + T","C + I + G − M"], correct:1, explain:"AD = C + I + G + (X − M). Net exports, not gross exports.", unit:3, level:"SL"},
+  {q:"Cyclical unemployment is best addressed by:", opts:["Retraining schemes","Demand-side policies","Microeconomic deregulation","Reducing minimum wage"], correct:1, explain:"Cyclical unemployment is caused by deficient AD; expansionary fiscal/monetary policy is appropriate.", unit:3, level:"SL"},
+  {q:"An expansionary monetary policy typically involves:", opts:["Cutting interest rates","Raising interest rates","Raising income tax","Cutting government spending"], correct:0, explain:"Lower interest rates make borrowing cheaper, stimulating consumption and investment.", unit:3, level:"SL"},
+  {q:"If MPC = 0.8, the multiplier equals:", opts:["1.25","2","4","5"], correct:3, explain:"k = 1/(1−0.8) = 1/0.2 = 5.", unit:3, level:"HL"},
+  {q:"Cost-push inflation can be caused by:", opts:["A fall in unemployment","A rise in oil prices","An increase in consumer confidence","Lower interest rates"], correct:1, explain:"Higher input costs shift SRAS left, raising prices while lowering output.", unit:3, level:"SL"},
+  {q:"A country has comparative advantage in producing wheat if it:", opts:["Has the lowest absolute cost in wheat","Has the lowest opportunity cost of producing wheat","Produces wheat more efficiently than every other country","Has fertile land for wheat"], correct:1, explain:"Comparative advantage is defined by lowest opportunity cost, not absolute productivity.", unit:4, level:"SL"},
+  {q:"Imposing a tariff on imports will most likely:", opts:["Increase consumer surplus","Reduce domestic production","Reduce imports","Lower the price paid by consumers"], correct:2, explain:"Tariffs raise import prices, reducing imports and shifting some demand to domestic producers.", unit:4, level:"SL"},
+  {q:"The Marshall–Lerner condition states that a depreciation will improve the current account if:", opts:["PEDx + PEDm < 1","PEDx + PEDm > 1","PEDx − PEDm > 1","PEDx × PEDm > 1"], correct:1, explain:"Sum of price elasticities of demand for exports and imports must exceed 1.", unit:4, level:"SL"},
+  {q:"In the short run after a depreciation, the current account often:", opts:["Improves immediately","Worsens before improving","Is unaffected","Becomes a surplus instantly"], correct:1, explain:"This is the J-curve: import bills rise quickly while export volumes adjust slowly.", unit:4, level:"SL"},
+  {q:"HDI does NOT include:", opts:["Life expectancy","GNI per capita","Mean years of schooling","Gini coefficient"], correct:3, explain:"HDI uses life expectancy, education, and income; the Gini is a separate measure of inequality.", unit:5, level:"SL"},
+  {q:"A Gini coefficient of 0 represents:", opts:["Perfect inequality","Perfect equality","High poverty","High development"], correct:1, explain:"0 = perfectly equal income distribution; 1 = perfectly unequal.", unit:5, level:"SL"},
+  {q:"Foreign direct investment (FDI) is best described as:", opts:["Short-term portfolio capital","Government-to-government aid","Investment by foreign firms in productive assets in another country","Tariff revenue"], correct:2, explain:"FDI involves a foreign firm taking a meaningful stake or building productive assets abroad.", unit:5, level:"SL"},
+  {q:"A monopoly is allocatively inefficient because it produces where:", opts:["P = MC","P > MC","P < MC","MC = ATC"], correct:1, explain:"Monopolies set MR = MC; since P > MR, P > MC, meaning resources are under-allocated to the good.", unit:2, level:"HL"},
+  {q:"In perfect competition in the long run, firms earn:", opts:["Abnormal profit","Normal profit only","Losses","Government subsidies"], correct:1, explain:"Free entry/exit eliminates abnormal profits in the long run.", unit:2, level:"HL"},
+  {q:"In a prisoner's dilemma, dominant-strategy outcome is:", opts:["Both cooperate","Both defect","One cooperates, one defects","Random"], correct:1, explain:"Each prisoner's best response, given mistrust, is to defect — leading to a Pareto-inferior outcome.", unit:2, level:"HL"},
+  {q:"Expansionary fiscal policy could include:", opts:["Cutting income tax","Raising interest rates","Selling government bonds","Reducing public investment"], correct:0, explain:"Lower tax raises disposable income, increasing C and AD.", unit:3, level:"SL"},
+  {q:"Real GDP differs from nominal GDP because real GDP:", opts:["Is measured in domestic currency","Adjusts for inflation","Adjusts for population","Includes net foreign income"], correct:1, explain:"Real GDP uses constant prices to remove the effect of inflation.", unit:3, level:"SL"},
+  {q:"Demand-pull inflation occurs when:", opts:["Costs of production rise","AD increases beyond the economy's capacity","Imports become cheaper","Interest rates fall in a recession"], correct:1, explain:"Excess demand at full employment pulls prices up.", unit:3, level:"SL"},
+  {q:"A subsidy on a merit good causes the supply curve to:", opts:["Shift left","Shift right","Become vertical","Stay the same"], correct:1, explain:"A subsidy lowers per-unit cost, shifting supply right and increasing output.", unit:2, level:"SL"},
+  {q:"Which of the following is a leakage from the circular flow?", opts:["Investment","Government spending","Imports","Exports"], correct:2, explain:"Imports remove spending from the domestic circular flow.", unit:3, level:"SL"},
+  {q:"A weakness of GDP per capita as a measure of welfare is that it:", opts:["Includes inflation","Doesn't show distribution of income","Is too easy to calculate","Includes net exports"], correct:1, explain:"GDP per capita is an average — it hides inequality.", unit:3, level:"SL"},
+];
+
+// --- CALCULATORS metadata used to render the calculator page ---
+const CALCS = [
+  {id:"ped", name:"Price Elasticity of Demand (PED)",
+    inputs:[{k:"p1",l:"Old price",ph:"e.g. 10"},{k:"p2",l:"New price",ph:"e.g. 12"},{k:"q1",l:"Old quantity",ph:"e.g. 100"},{k:"q2",l:"New quantity",ph:"e.g. 80"}],
+    fn: v => {
+      const dQ = ((v.q2 - v.q1) / v.q1) * 100;
+      const dP = ((v.p2 - v.p1) / v.p1) * 100;
+      const ped = dQ / dP;
+      const tag = Math.abs(ped) > 1 ? "Elastic" : Math.abs(ped) === 1 ? "Unit elastic" : Math.abs(ped) === 0 ? "Perfectly inelastic" : "Inelastic";
+      return {value: ped.toFixed(3), label: "PED", note: `${tag}. %ΔQ = ${dQ.toFixed(2)}%, %ΔP = ${dP.toFixed(2)}%.`};
+    }
+  },
+  {id:"pes", name:"Price Elasticity of Supply (PES)",
+    inputs:[{k:"p1",l:"Old price"},{k:"p2",l:"New price"},{k:"q1",l:"Old quantity"},{k:"q2",l:"New quantity"}],
+    fn: v => {
+      const dQ = ((v.q2 - v.q1) / v.q1) * 100;
+      const dP = ((v.p2 - v.p1) / v.p1) * 100;
+      const pes = dQ / dP;
+      const tag = pes > 1 ? "Elastic" : pes === 1 ? "Unit elastic" : "Inelastic";
+      return {value: pes.toFixed(3), label: "PES", note: `${tag}. %ΔQ = ${dQ.toFixed(2)}%, %ΔP = ${dP.toFixed(2)}%.`};
+    }
+  },
+  {id:"yed", name:"Income Elasticity of Demand (YED)",
+    inputs:[{k:"y1",l:"Old income"},{k:"y2",l:"New income"},{k:"q1",l:"Old quantity"},{k:"q2",l:"New quantity"}],
+    fn: v => {
+      const dQ = ((v.q2 - v.q1) / v.q1) * 100;
+      const dY = ((v.y2 - v.y1) / v.y1) * 100;
+      const yed = dQ / dY;
+      const tag = yed < 0 ? "Inferior good" : yed > 1 ? "Luxury (income elastic normal)" : "Necessity (income inelastic normal)";
+      return {value: yed.toFixed(3), label: "YED", note: tag};
+    }
+  },
+  {id:"xed", name:"Cross Elasticity of Demand (XED)",
+    inputs:[{k:"pb1",l:"Good B old price"},{k:"pb2",l:"Good B new price"},{k:"qa1",l:"Good A old qty"},{k:"qa2",l:"Good A new qty"}],
+    fn: v => {
+      const dQ = ((v.qa2 - v.qa1) / v.qa1) * 100;
+      const dP = ((v.pb2 - v.pb1) / v.pb1) * 100;
+      const xed = dQ / dP;
+      const tag = xed > 0 ? "Substitutes" : xed < 0 ? "Complements" : "Unrelated";
+      return {value: xed.toFixed(3), label: "XED", note: tag};
+    }
+  },
+  {id:"gdp", name:"GDP — Expenditure approach",
+    inputs:[{k:"c",l:"Consumption (C)"},{k:"i",l:"Investment (I)"},{k:"g",l:"Government (G)"},{k:"x",l:"Exports (X)"},{k:"m",l:"Imports (M)"}],
+    fn: v => {
+      const gdp = v.c + v.i + v.g + (v.x - v.m);
+      return {value: gdp.toLocaleString(), label: "GDP", note: `C+I+G+(X−M) = ${v.c}+${v.i}+${v.g}+(${v.x}−${v.m})`};
+    }
+  },
+  {id:"unemp", name:"Unemployment rate",
+    inputs:[{k:"un",l:"Unemployed"},{k:"lf",l:"Labour force"}],
+    fn: v => {
+      const r = (v.un / v.lf) * 100;
+      return {value: r.toFixed(2) + "%", label: "Unemployment rate", note: `${v.un} / ${v.lf} × 100`};
+    }
+  },
+  {id:"infl", name:"CPI Inflation rate",
+    inputs:[{k:"c1",l:"CPI period 1"},{k:"c2",l:"CPI period 2"}],
+    fn: v => {
+      const r = ((v.c2 - v.c1) / v.c1) * 100;
+      return {value: r.toFixed(2) + "%", label: "Inflation", note: `(${v.c2}−${v.c1})/${v.c1} × 100`};
+    }
+  },
+  {id:"real", name:"Real GDP from Nominal",
+    inputs:[{k:"nom",l:"Nominal GDP"},{k:"px",l:"Price index"}],
+    fn: v => {
+      const real = (v.nom / v.px) * 100;
+      return {value: real.toLocaleString(), label: "Real GDP", note: `(Nominal / Price index) × 100`};
+    }
+  },
+  {id:"mult", name:"Keynesian Multiplier (HL)", level:"HL",
+    inputs:[{k:"mpc",l:"MPC (0–1)"}],
+    fn: v => {
+      const k = 1 / (1 - v.mpc);
+      return {value: k.toFixed(3), label: "Multiplier (k)", note: `k = 1 / (1 − MPC). With MPC=${v.mpc}.`};
+    }
+  },
+  {id:"tot", name:"Terms of Trade (HL)", level:"HL",
+    inputs:[{k:"px",l:"Export price index"},{k:"pm",l:"Import price index"}],
+    fn: v => {
+      const tot = (v.px / v.pm) * 100;
+      return {value: tot.toFixed(2), label: "ToT", note: `(Px / Pm) × 100. >100 means improvement.`};
+    }
+  },
+  {id:"fx", name:"Exchange Rate Converter",
+    inputs:[{k:"amt",l:"Amount"},{k:"rate",l:"Exchange rate (target/source)"}],
+    fn: v => {
+      const out = v.amt * v.rate;
+      return {value: out.toLocaleString(), label: "Converted", note: `${v.amt} × ${v.rate}`};
+    }
+  },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  page: "dashboard",
+  unit: 1,
+  level: localStorage.getItem("level") || "SL",
+  dark: localStorage.getItem("dark") === "1",
+  learned: JSON.parse(localStorage.getItem("learned") || "[]"),
+  mcqStats: JSON.parse(localStorage.getItem("mcqStats") || '{"answered":0,"correct":0}'),
+  shortAnswered: JSON.parse(localStorage.getItem("shortAnswered") || "[]"),
+  apiKey: localStorage.getItem("anthropic_api_key") || "",
+  chatHistory: [],
+  practiceTab: "short",
+  notesUnit: 1,
+};
+
+function applyLevel() {
+  document.body.classList.toggle("sl-mode", state.level === "SL");
+  const pill = document.getElementById("level-pill");
+  pill.textContent = state.level;
+  pill.classList.toggle("hl", state.level === "HL");
+  document.getElementById("level-switch").classList.toggle("on", state.level === "HL");
+  localStorage.setItem("level", state.level);
+}
+function applyDark() {
+  document.body.classList.toggle("dark", state.dark);
+  document.getElementById("dark-switch").classList.toggle("on", state.dark);
+  localStorage.setItem("dark", state.dark ? "1" : "0");
+}
+
+// ============================================================
+// ROUTING
+// ============================================================
+function setPage(page, opts = {}) {
+  state.page = page;
+  if (opts.unit) state.notesUnit = parseInt(opts.unit, 10);
+  document.querySelectorAll(".nav-item").forEach(el => {
+    const isMatch = el.dataset.page === page && (!el.dataset.unit || parseInt(el.dataset.unit) === state.notesUnit);
+    el.classList.toggle("active", page === el.dataset.page && (!el.dataset.unit ? !opts.unit : isMatch));
+  });
+  // exception: top-level "notes" should remain active when on notes
+  document.querySelectorAll('.nav-item[data-page="notes"]').forEach(el => {
+    if (!el.dataset.unit && page === "notes") el.classList.add("active");
+  });
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const main = document.getElementById("main");
+  switch (state.page) {
+    case "dashboard": main.innerHTML = renderDashboard(); break;
+    case "notes": main.innerHTML = renderNotes(); break;
+    case "definitions": main.innerHTML = renderDefinitions(); attachDefinitions(); break;
+    case "practice": main.innerHTML = renderPractice(); attachPractice(); break;
+    case "calculator": main.innerHTML = renderCalculator(); attachCalculator(); break;
+    case "exams": main.innerHTML = renderExams(); break;
+    case "tutor": main.innerHTML = renderTutor(); attachTutor(); break;
+  }
+}
+
+function renderDashboard() {
+  const totalDefs = DEFINITIONS.length;
+  const learnedCount = state.learned.length;
+  const pctLearned = Math.round((learnedCount / totalDefs) * 100);
+  const mcqAns = state.mcqStats.answered;
+  const mcqAcc = mcqAns ? Math.round((state.mcqStats.correct / mcqAns) * 100) : 0;
+  return `
+    <h1>Dashboard</h1>
+    <p class="page-sub">Welcome back. Pick up where you left off, or jump into a new topic.</p>
+    <div class="grid cols-3" style="margin-bottom: 24px;">
+      <div class="card stat"><span class="stat-num">${learnedCount}/${totalDefs}</span><span class="stat-lbl">Definitions learned (${pctLearned}%)</span></div>
+      <div class="card stat"><span class="stat-num">${mcqAns}</span><span class="stat-lbl">MCQs answered (${mcqAcc}% accuracy)</span></div>
+      <div class="card stat"><span class="stat-num">${state.shortAnswered.length}</span><span class="stat-lbl">Short Qs reviewed</span></div>
+    </div>
+    <h2>Jump to a unit</h2>
+    <div class="grid cols-3">
+      ${Object.entries(UNITS).map(([n, name]) => `
+        <div class="card" style="cursor:pointer" onclick="setPage('notes',{unit:${n}})">
+          <div class="badge unit">Unit ${n}</div>
+          <h3 style="margin:8px 0 4px">${name}</h3>
+          <p style="color:var(--muted); font-size:13px; margin:0;">Open notes →</p>
+        </div>
+      `).join("")}
+    </div>
+    <h2>Quick actions</h2>
+    <div class="grid cols-3">
+      <div class="card" style="cursor:pointer" onclick="setPage('definitions')"><h3>📚 Flashcards</h3><p style="color:var(--muted)">Drill ${DEFINITIONS.length}+ key terms.</p></div>
+      <div class="card" style="cursor:pointer" onclick="setPage('practice')"><h3>✎ Practice</h3><p style="color:var(--muted)">Short Qs, calculations, MCQs.</p></div>
+      <div class="card" style="cursor:pointer" onclick="setPage('tutor')"><h3>✦ AI Tutor</h3><p style="color:var(--muted)">Ask anything. Get IB-style answers.</p></div>
+    </div>
+  `;
+}
+
+function renderNotes() {
+  const u = state.notesUnit;
+  return `
+    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+      <h1 style="margin:0">Unit ${u} — ${UNITS[u]}</h1>
+      <span class="level-pill ${state.level === 'HL' ? 'hl' : ''}">${state.level}</span>
+    </div>
+    <p class="page-sub">Comprehensive notes. HL-only sections appear when HL mode is on.</p>
+    <div class="pill-row">
+      ${Object.keys(UNITS).map(n => `<span class="pill ${n == u ? 'active' : ''}" onclick="setPage('notes',{unit:${n}})">Unit ${n}</span>`).join("")}
+    </div>
+    ${STUDY_CONTENT[u]}
+  `;
+}
+
+function renderDefinitions() {
+  const learnedCount = state.learned.length;
+  const total = DEFINITIONS.length;
+  const pct = Math.round((learnedCount / total) * 100);
+  return `
+    <h1>Definitions</h1>
+    <p class="page-sub">${total} key IB Economics terms. Click a card to flip it. Mark cards as learned to track progress.</p>
+    <div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div>
+    <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">${learnedCount} / ${total} learned (${pct}%)</div>
+    <div class="filters">
+      <select id="def-unit-filter">
+        <option value="all">All units</option>
+        ${Object.entries(UNITS).map(([n,name]) => `<option value="${n}">Unit ${n} — ${name}</option>`).join("")}
+      </select>
+      <select id="def-level-filter">
+        <option value="all">All levels</option>
+        <option value="SL">SL only</option>
+        <option value="HL">HL only</option>
+      </select>
+      <input id="def-search" placeholder="Search terms..." style="min-width:220px" />
+    </div>
+    <div class="flash-grid" id="flash-grid"></div>
+  `;
+}
+
+function attachDefinitions() {
+  const unitFilter = document.getElementById("def-unit-filter");
+  const levelFilter = document.getElementById("def-level-filter");
+  const search = document.getElementById("def-search");
+  const grid = document.getElementById("flash-grid");
+
+  function refresh() {
+    const u = unitFilter.value;
+    const l = levelFilter.value;
+    const q = search.value.trim().toLowerCase();
+    const slMode = state.level === "SL";
+    const items = DEFINITIONS.filter(d => {
+      if (slMode && d.level === "HL") return false;
+      if (u !== "all" && d.unit != u) return false;
+      if (l !== "all" && d.level !== l) return false;
+      if (q && !(d.term.toLowerCase().includes(q) || d.def.toLowerCase().includes(q))) return false;
+      return true;
+    });
+    grid.innerHTML = items.map((d, idx) => {
+      const id = `def-${DEFINITIONS.indexOf(d)}`;
+      const learned = state.learned.includes(id);
+      return `
+        <div class="flashcard" data-id="${id}">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div>
+                <div class="qmeta" style="margin-bottom:8px;">
+                  <span class="badge unit">Unit ${d.unit}</span>
+                  <span class="badge ${d.level === 'HL' ? 'hl' : 'sl'}">${d.level}</span>
+                </div>
+                <div class="flashcard-term">${d.term}</div>
+              </div>
+              <div class="flashcard-foot">
+                <span style="font-size:11px;color:var(--muted)">Click to flip</span>
+                <button class="learned-btn ${learned ? 'on' : ''}" data-action="learn" data-id="${id}">${learned ? '✓ Learned' : 'Mark learned'}</button>
+              </div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div>
+                <div class="flashcard-def">${d.def}</div>
+                <div class="flashcard-eg">e.g., ${d.eg}</div>
+              </div>
+              <div class="flashcard-foot">
+                <span style="font-size:11px;color:var(--muted)">Click to flip back</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("") || `<p style="color:var(--muted)">No matching terms.</p>`;
+  }
+  refresh();
+
+  grid.addEventListener("click", e => {
+    const learnBtn = e.target.closest('[data-action="learn"]');
+    if (learnBtn) {
+      e.stopPropagation();
+      const id = learnBtn.dataset.id;
+      if (state.learned.includes(id)) {
+        state.learned = state.learned.filter(x => x !== id);
+      } else {
+        state.learned.push(id);
+      }
+      localStorage.setItem("learned", JSON.stringify(state.learned));
+      refresh();
+      // also update the bar
+      const total = DEFINITIONS.length;
+      const pct = Math.round((state.learned.length / total) * 100);
+      document.querySelector(".progress-bar").style.width = pct + "%";
+      return;
+    }
+    const card = e.target.closest(".flashcard");
+    if (card) card.classList.toggle("flipped");
+  });
+  unitFilter.addEventListener("change", refresh);
+  levelFilter.addEventListener("change", refresh);
+  search.addEventListener("input", refresh);
+}
+
+function renderPractice() {
+  return `
+    <h1>Practice</h1>
+    <p class="page-sub">Short answer questions, interactive calculations, and MCQs.</p>
+    <div class="tabs">
+      <div class="tab ${state.practiceTab === 'short' ? 'active' : ''}" data-tab="short">Short Answer</div>
+      <div class="tab ${state.practiceTab === 'calc' ? 'active' : ''}" data-tab="calc">Calculations</div>
+      <div class="tab ${state.practiceTab === 'mcq' ? 'active' : ''}" data-tab="mcq">MCQ Quiz</div>
+    </div>
+    <div id="practice-body"></div>
+  `;
+}
+
+function attachPractice() {
+  document.querySelectorAll(".tab").forEach(t => {
+    t.addEventListener("click", () => {
+      state.practiceTab = t.dataset.tab;
+      document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x.dataset.tab === state.practiceTab));
+      renderPracticeBody();
+    });
+  });
+  renderPracticeBody();
+}
+
+function renderPracticeBody() {
+  const body = document.getElementById("practice-body");
+  if (state.practiceTab === "short") body.innerHTML = renderShort();
+  else if (state.practiceTab === "calc") body.innerHTML = renderCalcQs();
+  else body.innerHTML = renderMCQ();
+  attachPracticeBody();
+}
+
+function renderShort() {
+  const slMode = state.level === "SL";
+  const list = SHORT_QUESTIONS.filter(q => !(slMode && q.level === "HL"));
+  return `
+    <div class="filters">
+      <select id="sq-unit-filter">
+        <option value="all">All units</option>
+        ${Object.entries(UNITS).map(([n,name]) => `<option value="${n}">Unit ${n}</option>`).join("")}
+      </select>
+    </div>
+    <div class="card" id="sq-list">
+      ${list.map((s, i) => `
+        <div class="qbox" data-unit="${s.unit}">
+          <div class="qhead">
+            <div><strong>Q${i+1}.</strong> ${s.q}</div>
+            <div class="qmeta">
+              <span class="badge unit">Unit ${s.unit}</span>
+              <span class="badge ${s.level === 'HL' ? 'hl' : 'sl'}">${s.level}</span>
+              <span class="badge unit">${s.marks} marks</span>
+            </div>
+          </div>
+          <button class="primary" data-toggle="${i}">Show answer</button>
+          <div class="reveal" id="reveal-${i}">${s.a}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderCalcQs() {
+  const slMode = state.level === "SL";
+  const list = CALC_QUESTIONS.filter(q => !(slMode && /HL/.test(q.title)));
+  return `
+    <div class="card">
+      ${list.map((c,i) => `
+        <div class="qbox">
+          <div class="qhead">
+            <div><strong>${c.title}</strong></div>
+            <span class="badge unit">Unit ${c.unit}</span>
+          </div>
+          <div>${c.problem}</div>
+          <button class="primary" data-toggle-calc="${i}" style="margin-top:10px;">Show step-by-step</button>
+          <div class="reveal" id="reveal-calc-${i}">
+            ${c.steps.map(s => `<div>${s}</div>`).join("")}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderMCQ() {
+  const slMode = state.level === "SL";
+  const list = MCQS.filter(q => !(slMode && q.level === "HL"));
+  return `
+    <div class="card" style="margin-bottom:14px;">
+      <div class="grid cols-3">
+        <div class="stat"><span class="stat-num" id="mcq-score">0/0</span><span class="stat-lbl">Score this session</span></div>
+        <div class="stat"><span class="stat-num" id="mcq-acc">—</span><span class="stat-lbl">Accuracy</span></div>
+        <div class="stat"><button class="primary" id="mcq-reset">Reset stats</button></div>
+      </div>
+    </div>
+    <div class="card" id="mcq-list">
+      ${list.map((m,i) => `
+        <div class="qbox">
+          <div class="qhead">
+            <div><strong>Q${i+1}.</strong> ${m.q}</div>
+            <span class="badge ${m.level === 'HL' ? 'hl' : 'sl'}">${m.level}</span>
+          </div>
+          <div class="mc-options" data-mcq="${i}">
+            ${m.opts.map((o, j) => `<button class="mc-option" data-i="${i}" data-j="${j}">${String.fromCharCode(65+j)}. ${o}</button>`).join("")}
+          </div>
+          <div class="reveal" id="mcq-reveal-${i}"></div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function attachPracticeBody() {
+  if (state.practiceTab === "short") {
+    document.querySelectorAll("[data-toggle]").forEach(b => {
+      b.addEventListener("click", () => {
+        const id = b.dataset.toggle;
+        document.getElementById("reveal-"+id).classList.toggle("show");
+        // mark as reviewed once
+        const key = "short-"+id;
+        if (!state.shortAnswered.includes(key)) {
+          state.shortAnswered.push(key);
+          localStorage.setItem("shortAnswered", JSON.stringify(state.shortAnswered));
+        }
+      });
+    });
+    const filter = document.getElementById("sq-unit-filter");
+    filter.addEventListener("change", () => {
+      const v = filter.value;
+      document.querySelectorAll("#sq-list .qbox").forEach(box => {
+        box.style.display = (v === "all" || box.dataset.unit === v) ? "" : "none";
+      });
+    });
+  } else if (state.practiceTab === "calc") {
+    document.querySelectorAll("[data-toggle-calc]").forEach(b => {
+      b.addEventListener("click", () => {
+        document.getElementById("reveal-calc-"+b.dataset.toggleCalc).classList.toggle("show");
+      });
+    });
+  } else {
+    let sessionAnswered = 0, sessionCorrect = 0;
+    document.querySelectorAll(".mc-option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        const i = parseInt(opt.dataset.i, 10);
+        const j = parseInt(opt.dataset.j, 10);
+        const slMode = state.level === "SL";
+        const list = MCQS.filter(q => !(slMode && q.level === "HL"));
+        const m = list[i];
+        const wrap = document.querySelector(`[data-mcq="${i}"]`);
+        if (wrap.dataset.locked === "1") return;
+        wrap.dataset.locked = "1";
+        const correct = j === m.correct;
+        wrap.querySelectorAll(".mc-option").forEach((b, k) => {
+          if (k === m.correct) b.classList.add("correct");
+          else if (k === j && !correct) b.classList.add("wrong");
+          b.disabled = true;
+        });
+        const reveal = document.getElementById("mcq-reveal-"+i);
+        reveal.innerHTML = (correct ? "<strong style='color:var(--good)'>Correct.</strong> " : "<strong style='color:var(--bad)'>Incorrect.</strong> ") + m.explain;
+        reveal.classList.add("show");
+        sessionAnswered++;
+        if (correct) sessionCorrect++;
+        state.mcqStats.answered++;
+        if (correct) state.mcqStats.correct++;
+        localStorage.setItem("mcqStats", JSON.stringify(state.mcqStats));
+        document.getElementById("mcq-score").textContent = sessionCorrect + "/" + sessionAnswered;
+        document.getElementById("mcq-acc").textContent = Math.round((sessionCorrect/sessionAnswered)*100) + "%";
+      });
+    });
+    document.getElementById("mcq-reset").addEventListener("click", () => {
+      state.mcqStats = {answered:0, correct:0};
+      localStorage.setItem("mcqStats", JSON.stringify(state.mcqStats));
+      renderPracticeBody();
+    });
+  }
+}
+
+function renderCalculator() {
+  const slMode = state.level === "SL";
+  const list = CALCS.filter(c => !(slMode && c.level === "HL"));
+  return `
+    <h1>Economics Calculator</h1>
+    <p class="page-sub">Plug in numbers and get an instant interpreted result.</p>
+    <div class="grid cols-2">
+      ${list.map(c => `
+        <div class="card calc-card" data-calc="${c.id}">
+          <h3 style="margin-top:0">${c.name} ${c.level === 'HL' ? '<span class="badge hl">HL</span>' : ''}</h3>
+          ${c.inputs.map(inp => `
+            <div style="margin-bottom:8px;">
+              <label style="font-size:12px;color:var(--muted)">${inp.l}</label>
+              <input type="number" data-k="${inp.k}" placeholder="${inp.ph || ''}" />
+            </div>
+          `).join("")}
+          <button class="primary" data-run="${c.id}" style="margin-top:8px;">Calculate</button>
+          <div class="calc-result" id="calc-out-${c.id}" style="display:none"></div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function attachCalculator() {
+  document.querySelectorAll("[data-run]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.run;
+      const calc = CALCS.find(c => c.id === id);
+      const card = document.querySelector(`[data-calc="${id}"]`);
+      const v = {};
+      let ok = true;
+      card.querySelectorAll("input").forEach(inp => {
+        const num = parseFloat(inp.value);
+        if (isNaN(num)) ok = false;
+        v[inp.dataset.k] = num;
+      });
+      const out = document.getElementById("calc-out-"+id);
+      if (!ok) {
+        out.style.display = "block";
+        out.innerHTML = "<span style='color:var(--bad)'>Please fill all fields with valid numbers.</span>";
+        return;
+      }
+      try {
+        const r = calc.fn(v);
+        out.style.display = "block";
+        out.innerHTML = `<div>${r.label}: <strong>${r.value}</strong></div><div style="font-size:12px;color:var(--muted);margin-top:6px">${r.note}</div>`;
+      } catch (e) {
+        out.style.display = "block";
+        out.innerHTML = "<span style='color:var(--bad)'>Calculation error. Check inputs.</span>";
+      }
+    });
+  });
+}
+
+function renderExams() {
+  return `
+    <h1>Exam Papers Guide</h1>
+    <p class="page-sub">Format, timing, and strategies for each IB Economics paper.</p>
+    <div class="card">
+      <h2 style="margin-top:0">Paper 1 — Extended Response</h2>
+      <table>
+        <tr><th>Level</th><th>Time</th><th>Marks</th><th>Format</th></tr>
+        <tr><td>SL</td><td>1 hr 15 min</td><td>30</td><td>Choose 2 from 3 essays. Each: (a) 10 marks, (b) 15 marks</td></tr>
+        <tr><td>HL</td><td>1 hr 30 min</td><td>50</td><td>Choose 2 from 3 essays. Same structure, more depth.</td></tr>
+      </table>
+      <h3>Part (a): Lower-order — explain, define, draw</h3>
+      <ul class="tight">
+        <li>Always include a labelled diagram.</li>
+        <li>Define key terms in the question stem.</li>
+        <li>Use real-world examples to illustrate.</li>
+      </ul>
+      <h3>Part (b): Higher-order — evaluate, discuss, to what extent</h3>
+      <ul class="tight">
+        <li>Build a balanced argument: pros AND cons.</li>
+        <li>Reach a clear, justified judgment in the conclusion.</li>
+        <li>Reference real-world cases (named country/firm).</li>
+        <li>Use IB key terms — short run vs long run, elastic vs inelastic, MSB vs MSC.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">Paper 2 — Data Response / Stimulus</h2>
+      <table>
+        <tr><th>Level</th><th>Time</th><th>Marks</th></tr>
+        <tr><td>SL & HL</td><td>1 hr 45 min</td><td>40</td></tr>
+      </table>
+      <p>Three real-world articles or data sets; structured questions on each, escalating in difficulty: <strong>define → calculate → explain → evaluate</strong>.</p>
+      <ul class="tight">
+        <li><strong>Quote</strong> directly from the stimulus — "as stated in paragraph 3...".</li>
+        <li>Use the <strong>actual data</strong> in calculation questions; don't fabricate.</li>
+        <li>Anchor your answers in the article's context — country, year, sector.</li>
+        <li>For evaluation parts, identify trade-offs specific to the case.</li>
+      </ul>
+    </div>
+
+    <div class="card hl-only">
+      <h2 style="margin-top:0">Paper 3 — Policy Paper <span class="badge hl">HL only</span></h2>
+      <table>
+        <tr><th>Time</th><th>Marks</th></tr>
+        <tr><td>1 hr 45 min</td><td>60</td></tr>
+      </table>
+      <p>Unseen article + data; produce a structured policy recommendation.</p>
+      <h3>Recommended structure</h3>
+      <ol>
+        <li><strong>Context (paragraph 1):</strong> identify the economic problem with reference to the data.</li>
+        <li><strong>Policy options (paragraphs 2–3):</strong> propose 2–3 policies, explain mechanism + diagram.</li>
+        <li><strong>Evaluation:</strong> trade-offs (efficiency vs equity, short vs long run, costs).</li>
+        <li><strong>Recommendation:</strong> argue for the best option with a clear justification.</li>
+      </ol>
+      <ul class="tight">
+        <li>Use exact IB terminology and reference data points.</li>
+        <li>Always include diagrams where relevant.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">Command Terms — Glossary</h2>
+      <table>
+        <tr><th>Term</th><th>What it requires</th></tr>
+        <tr><td>Define</td><td>Give a precise meaning.</td></tr>
+        <tr><td>Describe</td><td>Give a detailed account.</td></tr>
+        <tr><td>Distinguish</td><td>Make clear the differences between two/more concepts.</td></tr>
+        <tr><td>Draw</td><td>Produce a labelled diagram (axes, curves, equilibria).</td></tr>
+        <tr><td>Explain</td><td>Give a detailed account with reasons or causes.</td></tr>
+        <tr><td>Analyse</td><td>Break down into components and identify essential features.</td></tr>
+        <tr><td>Apply</td><td>Use a concept/theory in a particular context.</td></tr>
+        <tr><td>Calculate</td><td>Show working and arrive at a numerical answer.</td></tr>
+        <tr><td>Compare</td><td>Give similarities between two/more items.</td></tr>
+        <tr><td>Compare and contrast</td><td>Similarities AND differences.</td></tr>
+        <tr><td>Construct</td><td>Build / create (often a diagram or argument).</td></tr>
+        <tr><td>Derive</td><td>Manipulate to reach a result, showing the steps.</td></tr>
+        <tr><td>Design</td><td>Produce a plan, diagram, or model.</td></tr>
+        <tr><td>Determine</td><td>Reach a conclusion using reasoning or calculation.</td></tr>
+        <tr><td>Discuss</td><td>Balanced review with arguments for and against.</td></tr>
+        <tr><td>Evaluate</td><td>Assess strengths and weaknesses; reach a judgment.</td></tr>
+        <tr><td>Examine</td><td>Consider an argument in detail; uncover assumptions.</td></tr>
+        <tr><td>Formulate</td><td>Express precisely and systematically.</td></tr>
+        <tr><td>Predict</td><td>Give an expected result.</td></tr>
+        <tr><td>Recommend</td><td>Suggest an action with justification.</td></tr>
+        <tr><td>Suggest</td><td>Propose, with reasoning, but without commitment.</td></tr>
+        <tr><td>To what extent</td><td>Assess how far a claim is true; nuanced judgment.</td></tr>
+      </table>
+    </div>
+  `;
+}
+
+function renderTutor() {
+  if (!state.apiKey) {
+    return `
+      <h1>AI Tutor</h1>
+      <p class="page-sub">Personalised IB Economics help powered by Claude. Your API key is stored locally — it never leaves your browser.</p>
+      <div class="card" style="max-width:600px">
+        <h3 style="margin-top:0">Set up</h3>
+        <p style="font-size:14px;color:var(--muted)">Get an Anthropic API key from <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>.</p>
+        <input id="api-key-input" placeholder="sk-ant-..." />
+        <button class="primary" id="save-key" style="margin-top:10px">Save key</button>
+        <p style="font-size:12px;color:var(--muted);margin-top:14px">The key is saved in <code>localStorage</code> and only sent directly to Anthropic from your browser.</p>
+      </div>
+    `;
+  }
+  return `
+    <h1>AI Tutor</h1>
+    <p class="page-sub">Ask anything. The tutor answers in IB exam style with diagrams (described), command-term awareness, and mark schemes.</p>
+    <div class="chips">
+      <span class="chip" data-prompt="Explain the diagram for a positive consumption externality.">Explain a diagram</span>
+      <span class="chip" data-prompt="Give me a paper 1 part (b) question on monopoly and a model 15-mark answer.">Past-paper question</span>
+      <span class="chip" data-prompt="What is the difference between SL and HL content for market structures?">SL vs HL difference</span>
+      <span class="chip" data-prompt="I'll paste my answer — please mark it against IB criteria and tell me what's missing.">Check my answer</span>
+      <span class="chip" data-prompt="Quick recap: Marshall–Lerner condition and J-curve, with a diagram description.">Marshall–Lerner & J-curve</span>
+    </div>
+    <div class="chat">
+      <div class="chat-msgs" id="chat-msgs">
+        ${state.chatHistory.length === 0 ? '<div style="color:var(--muted);text-align:center;padding-top:40px">Start a conversation. Ask any IB Economics question.</div>' : ""}
+        ${state.chatHistory.map(m => `<div class="msg ${m.role}">${escapeHTML(m.content)}</div>`).join("")}
+      </div>
+      <div class="chat-input-row">
+        <textarea id="chat-input" placeholder="Ask a question... (Shift+Enter = newline)"></textarea>
+        <button class="primary" id="chat-send">Send</button>
+      </div>
+      <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+        <button id="chat-clear">Clear chat</button>
+        <button id="chat-changekey">Change API key</button>
+        <span style="font-size:12px;color:var(--muted)">Model: claude-opus-4-7</span>
+      </div>
+    </div>
+  `;
+}
+
+function escapeHTML(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function attachTutor() {
+  if (!state.apiKey) {
+    document.getElementById("save-key").addEventListener("click", () => {
+      const v = document.getElementById("api-key-input").value.trim();
+      if (!v) return;
+      state.apiKey = v;
+      localStorage.setItem("anthropic_api_key", v);
+      render();
+    });
+    return;
+  }
+  const input = document.getElementById("chat-input");
+  const sendBtn = document.getElementById("chat-send");
+  const msgsEl = document.getElementById("chat-msgs");
+
+  document.querySelectorAll(".chip").forEach(c => {
+    c.addEventListener("click", () => {
+      input.value = c.dataset.prompt;
+      input.focus();
+    });
+  });
+
+  document.getElementById("chat-clear").addEventListener("click", () => {
+    state.chatHistory = [];
+    render();
+  });
+  document.getElementById("chat-changekey").addEventListener("click", () => {
+    localStorage.removeItem("anthropic_api_key");
+    state.apiKey = "";
+    state.chatHistory = [];
+    render();
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+  sendBtn.addEventListener("click", sendMessage);
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    state.chatHistory.push({role:"user", content:text});
+    appendMsg("user", text);
+    const placeholder = appendMsg("assistant", "Thinking...");
+
+    try {
+      const systemPrompt = `You are an expert IB Economics tutor. Tailor your answers to IB exam style:
+- Use IB command terms (define, explain, analyse, evaluate, discuss, to what extent) appropriately.
+- When relevant, describe diagrams in clear text (axes, curves, equilibria, shifts, areas of welfare loss).
+- Reference both SL and HL content where appropriate. The current student is studying ${state.level}; emphasise ${state.level} content.
+- For evaluative questions, give balanced arguments and reach a justified judgment.
+- For mark-scheme style answers, indicate where marks are awarded.
+- Use real-world examples (named country/firm/year).
+- Keep answers focused and well-structured (use short paragraphs, occasional bullet lists).`;
+      const messages = state.chatHistory.map(m => ({role: m.role, content: m.content}));
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": state.apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify({
+          model: "claude-opus-4-7",
+          max_tokens: 1500,
+          system: systemPrompt,
+          messages
+        })
+      });
+      if (!res.ok) {
+        const err = await res.text();
+        placeholder.textContent = "Error: " + err.slice(0, 400);
+        return;
+      }
+      const data = await res.json();
+      const reply = (data.content || []).map(c => c.text || "").join("\n").trim() || "(no reply)";
+      placeholder.textContent = reply;
+      state.chatHistory.push({role:"assistant", content: reply});
+    } catch (err) {
+      placeholder.textContent = "Network error: " + err.message;
+    }
+  }
+
+  function appendMsg(role, text) {
+    const empty = msgsEl.querySelector("div[style*='text-align:center']");
+    if (empty) empty.remove();
+    const div = document.createElement("div");
+    div.className = "msg " + role;
+    div.textContent = text;
+    msgsEl.appendChild(div);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+    return div;
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.getElementById("nav").addEventListener("click", e => {
+  const item = e.target.closest(".nav-item");
+  if (!item) return;
+  const page = item.dataset.page;
+  if (!page) return;
+  const opts = {};
+  if (item.dataset.unit) opts.unit = item.dataset.unit;
+  setPage(page, opts);
+});
+document.getElementById("level-switch").addEventListener("click", () => {
+  state.level = state.level === "SL" ? "HL" : "SL";
+  applyLevel();
+  render();
+});
+document.getElementById("dark-switch").addEventListener("click", () => {
+  state.dark = !state.dark;
+  applyDark();
+});
+
+applyLevel();
+applyDark();
+render();
+</script>
+</body>
+</html>
